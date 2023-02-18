@@ -11,6 +11,35 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        libs {
+            version('jvm', '1.8')
+            version('kotlinCompilerExtension', '1.4.2')
+
+            version('agp', '7.4.1')
+            version('kotlin', '1.8.10')
+            version('compose', "1.3.3")
+            version('material3', '1.1.0-alpha06')
+            version('androidX-core', '1.9.0')
+            version('androidX-activity', '1.6.1')
+            version('lifecycle', '2.5.1')
+
+            plugin('android-application', 'com.android.application').versionRef('agp')
+            plugin('android-library', 'com.android.library').versionRef('agp')
+            plugin('kotlin-android', 'org.jetbrains.kotlin.android').versionRef('kotlin')
+
+            library('androidX-core', 'androidx.core', 'core-ktx').versionRef('androidX-core')
+            library('androidX-activity-compose', 'androidx.activity', 'activity-compose').versionRef('androidX-activity')
+            library('lifecycle-runtime', 'androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle')
+
+            library('compose-ui', 'androidx.compose.ui', 'ui').versionRef('compose')
+            library('compose-ui-preview', 'androidx.compose.ui', 'ui-tooling-preview').versionRef('compose')
+            library('material3', 'androidx.compose.material3', 'material3').versionRef('material3')
+            bundle('compose', ['compose-ui', 'compose-ui-preview'])
+            bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
+
+        }
+    }
 }
 rootProject.name = "Getcamp"
 include ':app'
