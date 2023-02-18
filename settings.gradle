@@ -45,3 +45,4 @@ rootProject.name = "Getcamp"
 include ':app'
 
 include ':feature:people', ':feature:schedule', ':feature:setting'
+include ':library:database', ':library:network'
