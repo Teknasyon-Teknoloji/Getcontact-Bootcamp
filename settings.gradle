@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Getcamp"
 include ':app'
+
+include ':feature:people', ':feature:schedule', ':feature:setting'
