@@ -3,3 +3,7 @@ apply from: "${featureCommonDir}"
 android {
     namespace 'com.gtc.getcamp.people'
 }
+
+dependencies {
+    implementation project(":library:database")
+}

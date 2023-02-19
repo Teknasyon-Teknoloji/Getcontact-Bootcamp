@@ -4,11 +4,12 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PersonDao {
     @Query("SELECT * FROM person")
-    fun getAll(): List<PersonEntity>
+    fun getAll(): Flow<List<PersonEntity>>
 
     @Query("SELECT * FROM person WHERE personId LIKE :personId")
     fun findById(personId: Int): PersonEntity
