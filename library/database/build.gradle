@@ -1,5 +1,19 @@
+plugins {
+    id 'kotlin-kapt'
+}
 apply from: "${libraryCommonDir}"
 
 android {
     namespace 'com.gtc.getcamp.database'
+}
+
+dependencies {
+
+    def room_version = "2.5.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }
