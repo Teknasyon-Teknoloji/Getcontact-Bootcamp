@@ -13,8 +13,12 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         libs {
+            version('minSdk', '24')
+            version('targetSdk', '33')
+            version('compileSdk', '33')
+
             version('jvm', '1.8')
-            version('kotlinCompilerExtension', '1.4.2')
+            version('composeCompiler', '1.4.2')
 
             version('agp', '7.4.1')
             version('kotlin', '1.8.10')
@@ -24,10 +28,15 @@ dependencyResolutionManagement {
             version('androidX-activity', '1.6.1')
             version('lifecycle', '2.5.1')
             version('hilt', '2.44.2')
+            version('room', '2.5.0')
+            version('coroutines', '1.6.4')
+            version('ksp', '1.8.0-1.0.9')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
             plugin('kotlin-android', 'org.jetbrains.kotlin.android').versionRef('kotlin')
+            plugin('ksp', 'com.google.devtools.ksp').versionRef('ksp')
+            plugin('kapt', 'org.jetbrains.kotlin.kapt').versionRef('kotlin')
 
             plugin('hilt', 'com.google.dagger.hilt.android').versionRef('hilt')
 
@@ -44,6 +53,13 @@ dependencyResolutionManagement {
 
             bundle('compose', ['compose-ui', 'compose-ui-preview'])
             bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
+
+            library('room-runtime', 'androidx.room', 'room-runtime').versionRef('room')
+            library('room-compiler', 'androidx.room', 'room-compiler').versionRef('room')
+
+            library('coroutines-core', 'org.jetbrains.kotlinx', 'kotlinx-coroutines-core').versionRef('coroutines')
+            library('coroutines-android', 'org.jetbrains.kotlinx', 'kotlinx-coroutines-android').versionRef('coroutines')
+            bundle('coroutines', ['coroutines-core', 'coroutines-android'])
 
         }
     }

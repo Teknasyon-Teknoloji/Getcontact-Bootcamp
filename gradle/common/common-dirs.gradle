@@ -1,0 +1,4 @@
+ext {
+    libraryCommonDir = "$rootDir/gradle/common/library-common.gradle"
+    featureCommonDir = "$rootDir/gradle/common/feature-common.gradle"
+}
