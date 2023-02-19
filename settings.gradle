@@ -29,13 +29,16 @@ dependencyResolutionManagement {
             version('lifecycle', '2.5.1')
             version('room', '2.5.0')
             version('coroutines', '1.6.4')
-            version('ksp', '1.8.0-1.0.9')
+            version('ksp', '1.8.10-1.0.9')
+            version('retrofit', '2.9.0')
+            version('hilt', '2.44.2')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
             plugin('kotlin-android', 'org.jetbrains.kotlin.android').versionRef('kotlin')
             plugin('ksp', 'com.google.devtools.ksp').versionRef('ksp')
             plugin('kapt', 'org.jetbrains.kotlin.kapt').versionRef('kotlin')
+            plugin('hilt', 'com.google.dagger.hilt.android').versionRef('hilt')
 
             library('androidX-core', 'androidx.core', 'core-ktx').versionRef('androidX-core')
             library('androidX-activity-compose', 'androidx.activity', 'activity-compose').versionRef('androidX-activity')
@@ -53,6 +56,13 @@ dependencyResolutionManagement {
             library('coroutines-core', 'org.jetbrains.kotlinx', 'kotlinx-coroutines-core').versionRef('coroutines')
             library('coroutines-android', 'org.jetbrains.kotlinx', 'kotlinx-coroutines-android').versionRef('coroutines')
             bundle('coroutines', ['coroutines-core', 'coroutines-android'])
+
+            library('retrofit', 'com.squareup.retrofit2', 'retrofit').versionRef('retrofit')
+            library('retrofit-moshi', 'com.squareup.retrofit2', 'converter-moshi').versionRef('retrofit')
+            bundle('retrofit', ['retrofit', 'retrofit-moshi'])
+
+            library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
+            library('hilt-compiler', 'com.google.dagger', 'hilt-android-compiler').versionRef('hilt')
 
         }
     }
