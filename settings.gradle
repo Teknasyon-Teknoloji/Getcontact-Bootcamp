@@ -27,7 +27,6 @@ dependencyResolutionManagement {
             version('androidX-core', '1.9.0')
             version('androidX-activity', '1.6.1')
             version('lifecycle', '2.5.1')
-            version('hilt', '2.44.2')
             version('room', '2.5.0')
             version('coroutines', '1.6.4')
             version('ksp', '1.8.10-1.0.9')
@@ -42,8 +41,6 @@ dependencyResolutionManagement {
             plugin('kapt', 'org.jetbrains.kotlin.kapt').versionRef('kotlin')
             plugin('hilt', 'com.google.dagger.hilt.android').versionRef('hilt')
 
-            plugin('hilt', 'com.google.dagger.hilt.android').versionRef('hilt')
-
             library('androidX-core', 'androidx.core', 'core-ktx').versionRef('androidX-core')
             library('androidX-activity-compose', 'androidx.activity', 'activity-compose').versionRef('androidX-activity')
             library('lifecycle-runtime', 'androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle')
@@ -52,8 +49,6 @@ dependencyResolutionManagement {
             library('compose-ui-preview', 'androidx.compose.ui', 'ui-tooling-preview').versionRef('compose')
             library('material3', 'androidx.compose.material3', 'material3').versionRef('material3')
 
-            library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
-            library('hilt-compiler', 'com.google.dagger', 'hilt-compiler').versionRef('hilt')
             library('datastore', 'androidx.datastore', 'datastore-preferences').versionRef('dataStore')
 
             bundle('compose', ['compose-ui', 'compose-ui-preview'])
