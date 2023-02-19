@@ -13,8 +13,12 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         libs {
+            version('minSdk', '24')
+            version('targetSdk', '33')
+            version('compileSdk', '33')
+
             version('jvm', '1.8')
-            version('kotlinCompilerExtension', '1.4.2')
+            version('composeCompiler', '1.4.2')
 
             version('agp', '7.4.1')
             version('kotlin', '1.8.10')
