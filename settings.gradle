@@ -23,10 +23,13 @@ dependencyResolutionManagement {
             version('androidX-core', '1.9.0')
             version('androidX-activity', '1.6.1')
             version('lifecycle', '2.5.1')
+            version('hilt', '2.44.2')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
             plugin('kotlin-android', 'org.jetbrains.kotlin.android').versionRef('kotlin')
+
+            plugin('hilt', 'com.google.dagger.hilt.android').versionRef('hilt')
 
             library('androidX-core', 'androidx.core', 'core-ktx').versionRef('androidX-core')
             library('androidX-activity-compose', 'androidx.activity', 'activity-compose').versionRef('androidX-activity')
@@ -35,6 +38,10 @@ dependencyResolutionManagement {
             library('compose-ui', 'androidx.compose.ui', 'ui').versionRef('compose')
             library('compose-ui-preview', 'androidx.compose.ui', 'ui-tooling-preview').versionRef('compose')
             library('material3', 'androidx.compose.material3', 'material3').versionRef('material3')
+
+            library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
+            library('hilt-compiler', 'com.google.dagger', 'hilt-compiler').versionRef('hilt')
+
             bundle('compose', ['compose-ui', 'compose-ui-preview'])
             bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
 
@@ -46,3 +53,4 @@ include ':app'
 
 include ':feature:people', ':feature:schedule', ':feature:setting'
 include ':library:database', ':library:network'
+include ':library:cache'
