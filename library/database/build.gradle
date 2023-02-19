@@ -1,6 +1,7 @@
 plugins {
-    id 'kotlin-kapt'
+    alias(libs.plugins.ksp)
 }
+
 apply from: "${libraryCommonDir}"
 
 android {
@@ -8,12 +9,8 @@ android {
 }
 
 dependencies {
-
-    def room_version = "2.5.0"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+    ksp libs.room.compiler
+    implementation libs.coroutines.core
 }
