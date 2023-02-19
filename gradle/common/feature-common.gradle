@@ -1,0 +1,5 @@
+apply from: "$libraryCommonDir"
+
+dependencies {
+    implementation libs.bundles.ui
+}

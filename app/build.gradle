@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.gtc.getcamp'
-    compileSdk 33
+    compileSdk libs.versions.compileSdk.get() as int
 
     defaultConfig {
         applicationId "com.gtc.getcamp"
-        minSdk 24
-        targetSdk 33
+        minSdk libs.versions.minSdk.get()  as int
+        targetSdk libs.versions.targetSdk.get()  as int
         versionCode 1
         versionName "1.0"
 
@@ -36,7 +36,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.kotlinCompilerExtension.get()
+        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
     }
     packagingOptions {
         resources {
