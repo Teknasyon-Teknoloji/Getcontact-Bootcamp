@@ -1,16 +1,16 @@
 plugins {
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kapt)
 }
 
 apply from: "${libraryCommonDir}"
 
 android {
-    namespace 'com.gtc.getcamp.network'
+    namespace 'com.gtc.getcamp.navigator'
 }
 
 dependencies {
-    implementation libs.bundles.retrofit
-    implementation libs.okhttp.logger
+    implementation libs.bundles.navigation
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 }
