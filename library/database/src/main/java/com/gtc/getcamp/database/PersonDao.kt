@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PersonDao {
     @Query("SELECT * FROM person")
-    fun getAll(): Flow<List<PersonEntity>>
+    suspend fun getAll(): List<PersonEntity>
 
     @Query("SELECT * FROM person WHERE personId LIKE :personId")
     fun findById(personId: Int): PersonEntity
@@ -18,7 +18,7 @@ interface PersonDao {
     fun insert(person: PersonEntity)
 
     @Insert
-    fun insertAll(vararg person: PersonEntity)
+    fun insertAll(persons: List<PersonEntity>)
 
     @Delete
     fun delete(person: PersonEntity)

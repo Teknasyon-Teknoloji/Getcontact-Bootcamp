@@ -1,3 +1,6 @@
+plugins {
+    alias(libs.plugins.kapt)
+}
 apply from: "${featureCommonDir}"
 
 android {
@@ -6,4 +9,9 @@ android {
 
 dependencies {
     implementation project(":library:database")
+    implementation project(":library:network")
+    implementation project(":library:navigator")
+    implementation libs.hilt.android
+    implementation libs.bundles.navigation
+    kapt libs.hilt.compiler
 }
