@@ -33,6 +33,7 @@ dependencyResolutionManagement {
             version('retrofit', '2.9.0')
             version('okhttp', '4.10.0')
             version('hilt', '2.44.2')
+            version('navigation', '2.5.3')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
@@ -68,6 +69,10 @@ dependencyResolutionManagement {
             library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
             library('hilt-compiler', 'com.google.dagger', 'hilt-android-compiler').versionRef('hilt')
 
+            library("navigation-compose", "androidx.navigation", "navigation-compose").versionRef('navigation')
+            library("hilt-navigation", "androidx.hilt", "hilt-navigation-compose").version('1.0.0')
+            library("navigation-material", "com.google.accompanist", "accompanist-navigation-material").version('0.24.10-beta')
+            bundle('navigation', ['navigation-compose', 'hilt-navigation', 'navigation-material'])
         }
     }
 }
@@ -76,3 +81,4 @@ include ':app'
 
 include ':feature:people', ':feature:schedule', ':feature:setting'
 include ':library:database', ':library:network'
+include ':library:navigator'
