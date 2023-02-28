@@ -34,17 +34,16 @@ class ResultExtractorInterceptor @Inject constructor(
 
     private fun String.convertWith(moshi: Moshi): String {
         val apiAdapter = moshi.adapter(ApiResponse::class.java)
-            ?: throw ApiResponseException("Couldn't create moshi adapter for ApiResponse", -1)
+            ?: throw ApiResponseException("Couldn't create moshi adapter for ApiResponse")
         val dataAdapter = moshi.adapter(Any::class.java)
-            ?: throw ApiResponseException("Couldn't create moshi adapter for result", -1)
+            ?: throw ApiResponseException("Couldn't create moshi adapter for result")
         val apiResponse = apiAdapter.fromJson(this)
-            ?: throw ApiResponseException("Couldn't convert json to ApiResponse", -1)
+            ?: throw ApiResponseException("Couldn't convert json to ApiResponse")
 
         if (apiResponse.success) {
             return apiResponse.result?.let { dataAdapter.toJson(it) } ?: "{}"
         } else {
-            throw ApiResponseException("", -1)
-            // Todo: throw ApiResponseException(apiResponse.statusMessage, apiResponse.statusCode)
+            throw ApiResponseException(apiResponse.message.orEmpty())
         }
     }
 }
@@ -55,6 +54,8 @@ data class ApiResponse(
     val success: Boolean,
     @field:Json(name = "result")
     val result: Any?,
+    @field:Json(name = "message")
+    val message: String?,
 )
 
-data class ApiResponseException(override val message: String, val code: Int) : IOException()
+data class ApiResponseException(override val message: String) : IOException()
