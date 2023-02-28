@@ -1,0 +1,9 @@
+apply from: "${libraryCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.utility'
+}
+
+dependencies {
+    implementation libs.coroutines.core
+}

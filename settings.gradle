@@ -70,7 +70,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Getcamp"
-include ':app'
 
+include ':app'
 include ':feature:people', ':feature:schedule', ':feature:setting'
-include ':library:database', ':library:network'
+include ':library:database', ':library:network', ':library:utility'
