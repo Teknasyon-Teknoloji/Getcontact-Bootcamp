@@ -51,6 +51,8 @@ dependencyResolutionManagement {
             bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
 
             library('room-runtime', 'androidx.room', 'room-runtime').versionRef('room')
+            library('room-ktx', 'androidx.room', 'room-ktx').versionRef('room')
+            bundle('room', ['room-runtime', 'room-ktx'])
             library('room-compiler', 'androidx.room', 'room-compiler').versionRef('room')
 
             library('coroutines-core', 'org.jetbrains.kotlinx', 'kotlinx-coroutines-core').versionRef('coroutines')
