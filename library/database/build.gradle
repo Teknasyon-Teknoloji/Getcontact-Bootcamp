@@ -11,7 +11,7 @@ android {
 }
 
 dependencies {
-    implementation libs.room.runtime
+    implementation libs.bundles.room
     annotationProcessor libs.room.compiler
     ksp libs.room.compiler
     implementation libs.coroutines.core

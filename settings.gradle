@@ -33,6 +33,7 @@ dependencyResolutionManagement {
             version('retrofit', '2.9.0')
             version('okhttp', '4.10.0')
             version('hilt', '2.44.2')
+            version('navigation', '2.5.3')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
@@ -52,6 +53,8 @@ dependencyResolutionManagement {
             bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
 
             library('room-runtime', 'androidx.room', 'room-runtime').versionRef('room')
+            library('room-ktx', 'androidx.room', 'room-ktx').versionRef('room')
+            bundle('room', ['room-runtime', 'room-ktx'])
             library('room-compiler', 'androidx.room', 'room-compiler').versionRef('room')
             library('okhttp-logger', 'com.squareup.okhttp3', 'logging-interceptor').versionRef('okhttp')
 
@@ -66,6 +69,10 @@ dependencyResolutionManagement {
             library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
             library('hilt-compiler', 'com.google.dagger', 'hilt-android-compiler').versionRef('hilt')
 
+            library("navigation-compose", "androidx.navigation", "navigation-compose").versionRef('navigation')
+            library("hilt-navigation", "androidx.hilt", "hilt-navigation-compose").version('1.0.0')
+            library("navigation-material", "com.google.accompanist", "accompanist-navigation-material").version('0.24.10-beta')
+            bundle('navigation', ['navigation-compose', 'hilt-navigation', 'navigation-material'])
         }
     }
 }
@@ -73,4 +80,4 @@ rootProject.name = "Getcamp"
 
 include ':app'
 include ':feature:people', ':feature:schedule', ':feature:setting'
-include ':library:database', ':library:network', ':library:utility'
+include ':library:database', ':library:network', ':library:utility', ':library:navigator'
