@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -9,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId "com.gtc.getcamp"
-        minSdk libs.versions.minSdk.get()  as int
-        targetSdk libs.versions.targetSdk.get()  as int
+        minSdk libs.versions.minSdk.get() as int
+        targetSdk libs.versions.targetSdk.get() as int
         versionCode 1
         versionName "1.0"
 
@@ -51,5 +53,10 @@ dependencies {
     implementation libs.lifecycle.runtime
     implementation libs.bundles.ui
 
+    implementation libs.bundles.navigation
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+
     implementation project(":library:database")
+    implementation project(":library:navigator")
 }
