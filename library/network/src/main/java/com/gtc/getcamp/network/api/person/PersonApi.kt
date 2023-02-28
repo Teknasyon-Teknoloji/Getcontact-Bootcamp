@@ -6,9 +6,9 @@ import retrofit2.http.Path
 interface PersonApi {
 
     @GET("person/list")
-    suspend fun getAll(): List<Person>
+    suspend fun getAll(): List<PersonDto>
 
     @GET("person/detail/{id}")
-    suspend fun get(@Path("id") id: String): Person
+    suspend fun get(@Path("id") id: String): PersonDto
 
 }

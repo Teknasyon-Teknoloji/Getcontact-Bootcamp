@@ -6,9 +6,9 @@ import retrofit2.http.Path
 interface ScheduleApi {
 
     @GET("schedule/list")
-    suspend fun getAll(): List<Schedule>
+    suspend fun getAll(): List<ScheduleDto>
 
     @GET("schedule/detail/{id}")
-    suspend fun get(@Path("id") id: String): Schedule
+    suspend fun get(@Path("id") id: String): ScheduleDto
 
 }
