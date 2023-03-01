@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun PeopleScreen(
+    viewModel: PeopleViewModel = hiltViewModel(),
 ){
     Text("People")
 }

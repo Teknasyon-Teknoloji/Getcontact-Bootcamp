@@ -9,7 +9,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.IOException
 import javax.inject.Inject
 
-private const val CONTENT_TYPE = "Content-Type"
+private const val CONTENT_TYPE = "content-type"
 private const val APPLICATION_JSON = "application/json"
 
 class ResultExtractorInterceptor @Inject constructor(

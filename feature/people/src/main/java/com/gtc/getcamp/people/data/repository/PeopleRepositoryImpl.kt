@@ -6,8 +6,12 @@ import com.gtc.getcamp.people.data.mapper.PersonDtoToPersonEntityMapper
 import com.gtc.getcamp.people.data.mapper.PersonEntityToPersonMapper
 import com.gtc.getcamp.people.domain.model.PersonModel
 import com.gtc.getcamp.people.domain.repository.PeopleRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PeopleRepositoryImpl @Inject constructor(
@@ -26,10 +30,13 @@ class PeopleRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getRemotePeople() {
-        peopleRemoteDataSource.getPeople().map { personDto ->
-            personDtoToPersonEntityMapper.map(personDto)
-        }.apply {
-            peopleLocalDatasource.insertPeople(this)
+        withContext(Dispatchers.IO){
+            peopleRemoteDataSource.getPeople().map { personDto ->
+                personDtoToPersonEntityMapper.map(personDto)
+            }.apply {
+                delay(3000)
+                peopleLocalDatasource.insertPeople(this)
+            }
         }
     }
 }

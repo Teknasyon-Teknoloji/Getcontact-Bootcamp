@@ -33,7 +33,8 @@ dependencyResolutionManagement {
             version('retrofit', '2.9.0')
             version('okhttp', '4.10.0')
             version('hilt', '2.44.2')
-            version('navigation', '2.5.3')
+            version('navigation', '2.5.1')
+            version('javapoet', '1.13.0')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
@@ -64,6 +65,7 @@ dependencyResolutionManagement {
 
             library('retrofit', 'com.squareup.retrofit2', 'retrofit').versionRef('retrofit')
             library('retrofit-moshi', 'com.squareup.retrofit2', 'converter-moshi').versionRef('retrofit')
+            library('moshi-codegen', 'com.squareup.moshi', 'moshi-kotlin-codegen').version('1.8.0')
             bundle('retrofit', ['retrofit', 'retrofit-moshi'])
 
             library('hilt-android', 'com.google.dagger', 'hilt-android').versionRef('hilt')
@@ -73,6 +75,8 @@ dependencyResolutionManagement {
             library("hilt-navigation", "androidx.hilt", "hilt-navigation-compose").version('1.0.0')
             library("navigation-material", "com.google.accompanist", "accompanist-navigation-material").version('0.24.10-beta')
             bundle('navigation', ['navigation-compose', 'hilt-navigation', 'navigation-material'])
+
+
         }
     }
 }
