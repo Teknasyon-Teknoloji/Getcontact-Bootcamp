@@ -33,8 +33,9 @@ dependencyResolutionManagement {
             version('retrofit', '2.9.0')
             version('okhttp', '4.10.0')
             version('hilt', '2.44.2')
-            version('navigation', '2.5.1')
-            version('coil', '2.2.2')
+            version('dataStore', '1.0.0')
+            version('navigation', '2.5.3')
+            
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
@@ -50,6 +51,9 @@ dependencyResolutionManagement {
             library('compose-ui', 'androidx.compose.ui', 'ui').versionRef('compose')
             library('compose-ui-preview', 'androidx.compose.ui', 'ui-tooling-preview').versionRef('compose')
             library('material3', 'androidx.compose.material3', 'material3').versionRef('material3')
+
+            library('datastore', 'androidx.datastore', 'datastore-preferences').versionRef('dataStore')
+
             bundle('compose', ['compose-ui', 'compose-ui-preview'])
             bundle('ui', ['compose-ui', 'compose-ui-preview', 'material3'])
 
@@ -80,8 +84,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Getcamp"
-include ':app'
 
+include ':app'
 include ':feature:people', ':feature:schedule', ':feature:setting'
-include ':library:database', ':library:network'
-include ':library:navigator'
+include ':library:database', ':library:network', ':library:utility', ':library:navigator', ':library:cache'
