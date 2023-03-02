@@ -34,7 +34,7 @@ dependencyResolutionManagement {
             version('okhttp', '4.10.0')
             version('hilt', '2.44.2')
             version('navigation', '2.5.1')
-            version('javapoet', '1.13.0')
+            version('coil', '2.2.2')
 
             plugin('android-application', 'com.android.application').versionRef('agp')
             plugin('android-library', 'com.android.library').versionRef('agp')
@@ -75,7 +75,6 @@ dependencyResolutionManagement {
             library("hilt-navigation", "androidx.hilt", "hilt-navigation-compose").version('1.0.0')
             library("navigation-material", "com.google.accompanist", "accompanist-navigation-material").version('0.24.10-beta')
             bundle('navigation', ['navigation-compose', 'hilt-navigation', 'navigation-material'])
-
 
         }
     }

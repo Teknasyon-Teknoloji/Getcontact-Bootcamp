@@ -9,4 +9,5 @@ class PeopleRemoteDataSourceImpl @Inject constructor(
 ) : PeopleRemoteDataSource {
 
     override suspend fun getPeople(): List<PersonDto> = personApi.getAll()
+    override suspend fun getPersonDetail(personId: String): PersonDto = personApi.get(personId)
 }

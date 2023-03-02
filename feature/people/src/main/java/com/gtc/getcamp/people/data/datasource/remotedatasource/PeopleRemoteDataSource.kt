@@ -4,4 +4,5 @@ import com.gtc.getcamp.network.api.person.PersonDto
 
 interface PeopleRemoteDataSource {
     suspend fun getPeople(): List<PersonDto>
+    suspend fun getPersonDetail(personId:String): PersonDto
 }

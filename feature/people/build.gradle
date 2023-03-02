@@ -13,5 +13,6 @@ dependencies {
     implementation project(":library:navigator")
     implementation libs.hilt.android
     implementation libs.bundles.navigation
+    implementation "io.coil-kt:coil-compose:2.2.2"
     kapt libs.hilt.compiler
 }

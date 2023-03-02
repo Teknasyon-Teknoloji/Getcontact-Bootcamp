@@ -1,23 +1,23 @@
 package com.gtc.getcamp.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.internal.ChannelFlow
 
 @Dao
 interface PersonDao {
+    @OptIn(InternalCoroutinesApi::class)
     @Query("SELECT * FROM person")
-    suspend fun getAll(): List<PersonEntity>
+    fun getAll(): Flow<List<PersonEntity>>
 
     @Query("SELECT * FROM person WHERE personId LIKE :personId")
-    fun findById(personId: Int): PersonEntity
+    fun findById(personId: String): Flow<PersonEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(person: PersonEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(persons: List<PersonEntity>)
 
     @Delete
