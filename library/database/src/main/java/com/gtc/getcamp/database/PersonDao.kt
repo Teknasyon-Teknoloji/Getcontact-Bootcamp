@@ -7,8 +7,7 @@ import kotlinx.coroutines.flow.internal.ChannelFlow
 
 @Dao
 interface PersonDao {
-    @OptIn(InternalCoroutinesApi::class)
-    @Query("SELECT * FROM person")
+    @Query("SELECT * FROM person ORDER BY name")
     fun getAll(): Flow<List<PersonEntity>>
 
     @Query("SELECT * FROM person WHERE personId LIKE :personId")
