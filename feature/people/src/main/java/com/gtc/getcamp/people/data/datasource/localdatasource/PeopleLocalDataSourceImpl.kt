@@ -11,7 +11,6 @@ class PeopleLocalDataSourceImpl @Inject constructor(
     private val personDao: PersonDao,
 ) : PeopleLocalDatasource {
 
-    @OptIn(InternalCoroutinesApi::class)
     override suspend fun getPeople(): Flow<List<PersonEntity>> = personDao.getAll()
     override suspend fun insertPeople(people: List<PersonEntity>) = personDao.insertAll(people)
     override suspend fun getPerson(personId: String): Flow<PersonEntity> = personDao.findById(personId)

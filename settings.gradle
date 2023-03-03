@@ -80,6 +80,7 @@ dependencyResolutionManagement {
             library("navigation-material", "com.google.accompanist", "accompanist-navigation-material").version('0.24.10-beta')
             bundle('navigation', ['navigation-compose', 'hilt-navigation', 'navigation-material'])
 
+            library('core-testing','androidx.arch.core','core-testing').version('2.2.0')
         }
     }
 }
