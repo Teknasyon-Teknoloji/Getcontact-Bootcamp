@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity("person")
 data class PersonEntity(
-    @PrimaryKey val personId: Long,
+    @PrimaryKey val personId: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "imageUrl") val imageUrl: String?,
     @ColumnInfo(name = "about") val about: String?,
