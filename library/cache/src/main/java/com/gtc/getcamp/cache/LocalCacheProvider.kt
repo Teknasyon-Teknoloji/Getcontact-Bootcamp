@@ -1,9 +1,9 @@
 package com.gtc.getcamp.cache
 
-import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.flow.Flow
 
 interface LocalCacheProvider {
 
     suspend fun <T : Any> writeValue(key: String, value: T)
-    suspend fun <T> readValue(key: Preferences.Key<T>, responseFunc: T.() -> Unit)
+    fun readIntValue(key: String): Flow<Int>
 }
