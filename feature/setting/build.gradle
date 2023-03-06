@@ -1,5 +1,17 @@
+plugins {
+    alias(libs.plugins.kapt)
+}
+
 apply from: "${featureCommonDir}"
 
 android {
     namespace 'com.gtc.getcamp.setting'
+}
+
+dependencies {
+    implementation project(":library:cache")
+    implementation project(":library:navigator")
+    implementation libs.hilt.android
+    implementation libs.bundles.navigation
+    kapt libs.hilt.compiler
 }
