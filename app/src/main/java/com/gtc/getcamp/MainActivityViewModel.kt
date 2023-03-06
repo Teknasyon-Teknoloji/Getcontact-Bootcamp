@@ -3,7 +3,7 @@ package com.gtc.getcamp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
-import com.gtc.samples.getcamp.feature.settings.domain.usecase.UserPrefUseCase
+import com.gtc.samples.getcamp.feature.settings.domain.usecase.GetUserPrefUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,10 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    userPrefUseCase: UserPrefUseCase,
+    getUserPrefUseCase: GetUserPrefUseCase,
 ) : ViewModel() {
 
-    val uiState: StateFlow<MainActivityUiState> = userPrefUseCase.getThemeConfig().map {
+    val uiState: StateFlow<MainActivityUiState> = getUserPrefUseCase.get().map {
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,
