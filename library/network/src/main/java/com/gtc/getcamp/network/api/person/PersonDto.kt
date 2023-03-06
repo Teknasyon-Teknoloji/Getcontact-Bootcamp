@@ -11,6 +11,8 @@ data class PersonDto(
     val name: String?,
     @field:Json(name = "image_url")
     val imageUrl: String?,
+    @field:Json(name = "about")
+    val about: String?,
     @field:Json(name = "links")
     val links: List<String>?,
 )

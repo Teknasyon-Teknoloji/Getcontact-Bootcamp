@@ -9,7 +9,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.IOException
 import javax.inject.Inject
 
-private const val CONTENT_TYPE = "Content-Type"
+private const val CONTENT_TYPE = "content-type"
 private const val APPLICATION_JSON = "application/json"
 
 class ResultExtractorInterceptor @Inject constructor(
@@ -20,7 +20,8 @@ class ResultExtractorInterceptor @Inject constructor(
         val response = chain.proceed(chain.request())
 
         // Check if response isn't json then don't convert it to obj
-        if (response.header(CONTENT_TYPE) != APPLICATION_JSON) return response
+        val contentTypeHeader = response.header(CONTENT_TYPE) ?: return response
+        if (!contentTypeHeader.contains(APPLICATION_JSON, true)) return response
 
         val data = response.body
             ?.string()
