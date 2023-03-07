@@ -60,4 +60,5 @@ dependencies {
     implementation project(":library:database")
     implementation project(":library:navigator")
     implementation project(":feature:people")
+    implementation project(":feature:schedule")
 }

@@ -14,10 +14,10 @@ import javax.inject.Singleton
 class PeopleNavigator @Inject constructor(): NavigatorGraphApi {
 
     override fun registerGraph(navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.composable("/persons"){
+        navGraphBuilder.composable("/people"){
             PeopleScreen()
         }
-        navGraphBuilder.composable("/persons/{personId}",
+        navGraphBuilder.composable("/person/{personId}",
             arguments = listOf(navArgument("personId") { type = NavType.StringType })
         ){
             PersonDetailScreen()

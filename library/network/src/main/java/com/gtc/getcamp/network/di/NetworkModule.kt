@@ -3,6 +3,7 @@ package com.gtc.getcamp.network.di
 import com.gtc.getcamp.network.BuildConfig
 import com.gtc.getcamp.network.interceptor.ResultExtractorInterceptor
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,15 +21,16 @@ private const val WRITE_TIMEOUT = 10 * 1000L
 private const val CONNECTION_TIMEOUT = 10 * 1000L
 
 // Todo: get it from properties
-private const val BASE_URL = "http://radiant.com.tr/getcamp/"
+private const val BASE_URL = "http://getcamp2023.com/api/"
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
-
+class NetworkModule {
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
+        .build()
 
     @Provides
     @Singleton

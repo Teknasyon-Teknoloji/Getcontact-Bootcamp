@@ -10,9 +10,11 @@ import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.navigator.NavigatorGraphApi
 import com.gtc.getcamp.navigator.registerGraph
 import com.gtc.getcamp.people.ui.navigator.PeopleNavigator
+import com.gtc.getcamp.schedule.presentation.ScheduleNavigator
 import com.gtc.getcamp.ui.theme.GetcampTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -22,13 +24,16 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var peopleNavigator: PeopleNavigator
 
+    @Inject
+    lateinit var scheduleNavigator: ScheduleNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppGraph(
                 navigator = navigator,
-                childGraphs = arrayOf(peopleNavigator) ,
-                startDestination = "/persons"
+                childGraphs = arrayOf(peopleNavigator, scheduleNavigator),
+                startDestination = "/schedule"
             )
             GetcampTheme {
 

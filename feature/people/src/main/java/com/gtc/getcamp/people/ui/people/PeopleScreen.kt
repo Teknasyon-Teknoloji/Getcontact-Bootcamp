@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gtc.getcamp.people.domain.model.PersonModel
-import com.gtc.getcamp.people.ui.PeopleItem
+import com.gtc.getcamp.people.ui.component.PeopleItem
 import com.gtc.getcamp.people.ui.people.action.PeopleScreenAction
 import com.gtc.getcamp.people.ui.people.fakedata.PeopleScreenFakeData
 import com.gtc.getcamp.people.ui.people.state.PeopleScreenState
@@ -44,7 +44,7 @@ fun UsersContent(
         items(people) {
             PeopleItem(
                 personModel = it,
-                onClickPerson = onClickPerson,
+                onClick = onClickPerson,
             )
         }
     }
