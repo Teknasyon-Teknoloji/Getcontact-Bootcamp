@@ -3,16 +3,13 @@ package com.gtc.getcamp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AddCircle
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -80,7 +77,7 @@ fun AppGraph(
                             },
                             icon = {
                                 Icon(
-                                    imageVector = item.icon,
+                                    painter = painterResource(id = item.icon),
                                     contentDescription = "${item.name} Icon",
                                 )
                             }
@@ -102,22 +99,22 @@ val bottomNavItems = listOf(
     BottomNavItem(
         name = "People",
         route = "/people",
-        icon = Icons.Rounded.Person,
+        icon = R.drawable.ic_people,
     ),
     BottomNavItem(
         name = "Android",
         route = "/schedule/android",
-        icon = Icons.Rounded.AddCircle,
+        icon = R.drawable.ic_android,
     ),
     BottomNavItem(
         name = "iOS",
         route = "/schedule/ios",
-        icon = Icons.Rounded.Star,
+        icon = R.drawable.ic_ios,
     ),
 )
 
 data class BottomNavItem(
     val name: String,
     val route: String,
-    val icon: ImageVector,
+    @DrawableRes val icon: Int,
 )
