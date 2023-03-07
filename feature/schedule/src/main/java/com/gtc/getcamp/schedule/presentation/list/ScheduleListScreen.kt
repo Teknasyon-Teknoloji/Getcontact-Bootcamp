@@ -1,36 +1,32 @@
 package com.gtc.getcamp.schedule.presentation.list
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.gtc.getcamp.schedule.R
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 import com.gtc.getcamp.schedule.domain.model.SpeakerPersonModel
 import java.util.*
 
 @Composable
 fun ScheduleListScreen(
-    scheduleListViewModel: ScheduleListViewModel = hiltViewModel(),
+    viewModel: ScheduleListViewModel = hiltViewModel(),
 ) {
-    val uiState by scheduleListViewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     when (uiState) {
         LoadingState -> {
@@ -40,7 +36,12 @@ fun ScheduleListScreen(
             val state = (uiState as SuccessState)
             LazyColumn {
                 itemsIndexed(state.schedules) { index, item ->
-                    ListItem(item = item)
+                    ListItem(
+                        item = item,
+                        onBookmark = {
+                            viewModel.toggleBookmark(item)
+                        }
+                    )
                     if (index < (state.schedules.size - 1)) {
                         Divider(color = Color.Gray.copy(alpha = 0.5f), thickness = 0.5.dp)
                     }
@@ -55,7 +56,10 @@ fun ScheduleListScreen(
 
 
 @Composable
-fun ListItem(item: ScheduleModel) {
+fun ListItem(
+    item: ScheduleModel,
+    onBookmark: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .padding(16.dp)
@@ -91,6 +95,16 @@ fun ListItem(item: ScheduleModel) {
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
+        IconButton(onClick = onBookmark) {
+            Icon(
+                painter = painterResource(
+                    if (item.isBookmarked == true) R.drawable.ic_star
+                    else R.drawable.ic_star_outline
+                ),
+                contentDescription = null,
+                tint = Color(0xFFFFEB3B)
+            )
+        }
     }
 }
 
@@ -116,6 +130,7 @@ fun PreviewListItem() {
                 personLinks = listOf()
             ),
             imageUrl = null,
-        )
+        ),
+        onBookmark = {},
     )
 }

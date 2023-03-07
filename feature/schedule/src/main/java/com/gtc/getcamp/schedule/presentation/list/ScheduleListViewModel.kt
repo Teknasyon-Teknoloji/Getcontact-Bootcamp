@@ -4,10 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gtc.getcamp.navigator.Navigator
+import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 import com.gtc.getcamp.schedule.domain.usecase.GetScheduleListUseCase
+import com.gtc.getcamp.schedule.domain.usecase.ToggleBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +18,7 @@ import javax.inject.Inject
 class ScheduleListViewModel @Inject constructor(
     private val navigator: Navigator,
     private val getScheduleListUseCase: GetScheduleListUseCase,
+    private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -31,8 +35,14 @@ class ScheduleListViewModel @Inject constructor(
         }
     }
 
-    fun navigateToDetail(scheduleId: String) {
+    fun navigateToDetail(scheduleId: Int) {
         return navigator.navigateTo("/schedule/${scheduleId}")
+    }
+
+    fun toggleBookmark(schedule: ScheduleModel) {
+        viewModelScope.launch {
+            toggleBookmarkUseCase(schedule.scheduleId).collect()
+        }
     }
 
 }

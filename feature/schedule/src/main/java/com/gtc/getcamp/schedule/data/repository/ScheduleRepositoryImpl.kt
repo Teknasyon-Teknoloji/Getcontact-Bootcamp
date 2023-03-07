@@ -57,9 +57,13 @@ class ScheduleRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getScheduleDetail(scheduleId: String): Flow<ScheduleModel> {
+    override fun getScheduleDetail(scheduleId: Int): Flow<ScheduleModel> {
         TODO("Not yet implemented")
     }
+
+    override fun toggleBookMark(scheduleId: Int): Flow<Unit> = flow<Unit> {
+        scheduleLocalDataSource.toggleBookmark(scheduleId)
+    }.flowOn(Dispatchers.IO)
 
     private suspend fun getRemoteSchedule(): Flow<List<ScheduleEntity>> = flow {
         scheduleRemoteDataSource.getSchedule().map { scheduleDto ->
