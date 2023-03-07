@@ -1,4 +1,4 @@
-package com.gtc.getcamp.schedule.presentation
+package com.gtc.getcamp.schedule.presentation.list
 
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 

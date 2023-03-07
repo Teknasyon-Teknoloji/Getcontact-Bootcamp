@@ -1,4 +1,4 @@
-package com.gtc.getcamp.schedule.presentation
+package com.gtc.getcamp.schedule.presentation.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

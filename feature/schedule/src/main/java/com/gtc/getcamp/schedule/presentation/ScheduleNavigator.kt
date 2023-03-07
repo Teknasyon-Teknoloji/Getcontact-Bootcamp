@@ -5,6 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gtc.getcamp.navigator.NavigatorGraphApi
+import com.gtc.getcamp.schedule.presentation.list.ScheduleListScreen
 import javax.inject.Inject
 import javax.inject.Singleton
 

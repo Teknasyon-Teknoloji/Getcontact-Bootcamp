@@ -1,4 +1,4 @@
-package com.gtc.getcamp.schedule.presentation
+package com.gtc.getcamp.schedule.presentation.list
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
