@@ -3,7 +3,23 @@ package com.gtc.getcamp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AddCircle
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.gtc.getcamp.navigator.Navigator
@@ -35,13 +51,11 @@ class MainActivity : ComponentActivity() {
                 childGraphs = arrayOf(peopleNavigator, scheduleNavigator),
                 startDestination = "/schedule"
             )
-            GetcampTheme {
-
-            }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppGraph(
     navigator: Navigator,
@@ -50,8 +64,64 @@ fun AppGraph(
 ) {
     val navController = rememberNavController()
     navigator.setNavHostController(navController)
+    GetcampTheme {
+        Scaffold(
+            bottomBar = {
+                NavigationBar(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                ) {
+                    bottomNavItems.forEach { item ->
+                        val selected = item.route == navigator.getCurrentRoute()
 
-    NavHost(navController = navController, startDestination = startDestination) {
-        registerGraph(*childGraphs)
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = { navigator.navigateTo(item.route) },
+                            label = {
+                                Text(
+                                    text = item.name,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = "${item.name} Icon",
+                                )
+                            }
+                        )
+                    }
+                }
+            },
+        ) {
+            Box(modifier = Modifier.padding(it)) {
+                NavHost(navController = navController, startDestination = startDestination) {
+                    registerGraph(*childGraphs)
+                }
+            }
+        }
     }
 }
+
+val bottomNavItems = listOf(
+    BottomNavItem(
+        name = "Android",
+        route = "/schedule/Android",
+        icon = Icons.Rounded.AddCircle,
+    ),
+    BottomNavItem(
+        name = "iOS",
+        route = "/schedule/iOS",
+        icon = Icons.Rounded.Star,
+    ),
+    BottomNavItem(
+        name = "People",
+        route = "/people",
+        icon = Icons.Rounded.Person,
+    ),
+)
+
+data class BottomNavItem(
+    val name: String,
+    val route: String,
+    val icon: ImageVector,
+)

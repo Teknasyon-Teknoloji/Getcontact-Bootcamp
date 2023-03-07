@@ -1,5 +1,6 @@
 package com.gtc.getcamp.schedule.presentation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gtc.getcamp.navigator.Navigator
@@ -13,19 +14,20 @@ import javax.inject.Inject
 @HiltViewModel
 class ScheduleListViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val getScheduleListUseCase: GetScheduleListUseCase
+    private val getScheduleListUseCase: GetScheduleListUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ScheduleScreenState>(LoadingState)
     val uiState = _uiState.asStateFlow()
 
     init {
-        fetchSchedules()
+        fetchSchedules(savedStateHandle.get<String>("platform") ?: "Android")
     }
 
-    private fun fetchSchedules() {
+    private fun fetchSchedules(platform: String?) {
         viewModelScope.launch {
-            getScheduleListUseCase().collect { _uiState.value = SuccessState(it) }
+            getScheduleListUseCase(platform).collect { _uiState.value = SuccessState(it) }
         }
     }
 

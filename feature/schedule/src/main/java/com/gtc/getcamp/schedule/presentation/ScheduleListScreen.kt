@@ -27,7 +27,7 @@ import com.gtc.getcamp.schedule.domain.model.SpeakerPersonModel
 
 @Composable
 fun ScheduleListScreen(
-    scheduleListViewModel: ScheduleListViewModel = hiltViewModel()
+    scheduleListViewModel: ScheduleListViewModel = hiltViewModel(),
 ) {
     val uiState by scheduleListViewModel.uiState.collectAsState()
 
