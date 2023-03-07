@@ -3,6 +3,7 @@ package com.gtc.getcamp.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.gtc.getcamp.database.typeconverter.DateConverter
 import com.gtc.getcamp.database.typeconverter.PersonLinkTypeConverter
 
 @Database(
@@ -15,6 +16,7 @@ import com.gtc.getcamp.database.typeconverter.PersonLinkTypeConverter
 )
 @TypeConverters(
     PersonLinkTypeConverter::class,
+    DateConverter::class,
 )
 abstract class GetcampDatabase : RoomDatabase() {
     abstract fun personDao(): PersonDao
