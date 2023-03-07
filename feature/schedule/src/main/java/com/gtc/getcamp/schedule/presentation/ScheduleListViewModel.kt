@@ -22,7 +22,7 @@ class ScheduleListViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        fetchSchedules(savedStateHandle.get<String>("platform") ?: "Android")
+        fetchSchedules(savedStateHandle.get<String>("platform") ?: "android")
     }
 
     private fun fetchSchedules(platform: String?) {

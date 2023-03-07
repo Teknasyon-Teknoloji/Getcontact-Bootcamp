@@ -12,7 +12,7 @@ class GetScheduleListUseCase @Inject constructor(
     operator fun invoke(platform: String?): Flow<List<ScheduleModel>> {
         return scheduleRepository.getScheduleList()
             .map { list ->
-                list.filter { item -> item.platform == platform }
+                list.filter { item -> item.platform == platform  || item.platform == "all" }
             }
     }
 }

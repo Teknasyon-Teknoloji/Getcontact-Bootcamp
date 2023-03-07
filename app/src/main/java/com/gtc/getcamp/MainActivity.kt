@@ -72,7 +72,6 @@ fun AppGraph(
                 ) {
                     bottomNavItems.forEach { item ->
                         val selected = item.route == navigator.getCurrentRoute()
-
                         NavigationBarItem(
                             selected = selected,
                             onClick = { navigator.navigateTo(item.route) },
@@ -105,12 +104,12 @@ fun AppGraph(
 val bottomNavItems = listOf(
     BottomNavItem(
         name = "Android",
-        route = "/schedule/Android",
+        route = "/schedule/android",
         icon = Icons.Rounded.AddCircle,
     ),
     BottomNavItem(
         name = "iOS",
-        route = "/schedule/iOS",
+        route = "/schedule/ios",
         icon = Icons.Rounded.Star,
     ),
     BottomNavItem(

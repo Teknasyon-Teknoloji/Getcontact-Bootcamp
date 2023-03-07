@@ -17,7 +17,7 @@ class ScheduleNavigator @Inject constructor() : NavigatorGraphApi {
             arguments = listOf(
                 navArgument("platform") {
                     type = NavType.StringType
-                    defaultValue = "Android"
+                    defaultValue = "android"
                 })
         ) {
             ScheduleListScreen()
@@ -27,7 +27,7 @@ class ScheduleNavigator @Inject constructor() : NavigatorGraphApi {
             arguments = listOf(
                 navArgument("platform") {
                     type = NavType.StringType
-                    defaultValue = "Android"
+                    defaultValue = "android"
                 })
         ) {
             ScheduleListScreen()
