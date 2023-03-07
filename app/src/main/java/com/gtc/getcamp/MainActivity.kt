@@ -7,7 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,6 +53,9 @@ fun AppGraph(
     vararg childGraphs: NavigatorGraphApi,
     startDestination: String,
 ) {
+    var selectedItem by remember {
+        mutableStateOf(bottomNavItems[0])
+    }
     val navController = rememberNavController()
     navigator.setNavHostController(navController)
     GetcampTheme {
@@ -60,12 +63,14 @@ fun AppGraph(
             bottomBar = {
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.secondary,
                 ) {
                     bottomNavItems.forEach { item ->
-                        val selected = item.route == navigator.getCurrentRoute()
+                        val selected = item == selectedItem
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
+                                selectedItem = item
                                 navigator.popUp(navigator.getCurrentRoute())
                                 navigator.navigateTo(item.route)
                             },
@@ -80,7 +85,14 @@ fun AppGraph(
                                     painter = painterResource(id = item.icon),
                                     contentDescription = "${item.name} Icon",
                                 )
-                            }
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                indicatorColor = MaterialTheme.colorScheme.primary,
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                            ),
                         )
                     }
                 }
