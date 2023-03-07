@@ -17,7 +17,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object PeopleModule {
+class PeopleModule {
 
     @Provides
     fun providePeopleLocalDataSource(
@@ -36,7 +36,7 @@ object PeopleModule {
         peopleEntityToPersonMapper: PersonEntityToPersonMapper,
         personDtoToPersonEntityMapper: PersonDtoToPersonEntityMapper,
     ): PeopleRepository = PeopleRepositoryImpl(
-        peopleLocalDatasource = peopleLocalDatasource,
+        peopleLocalDataSource = peopleLocalDatasource,
         peopleRemoteDataSource = peopleRemoteDataSource,
         personEntityToPersonMapper = peopleEntityToPersonMapper,
         personDtoToPersonEntityMapper = personDtoToPersonEntityMapper,

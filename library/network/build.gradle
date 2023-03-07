@@ -13,7 +13,7 @@ dependencies {
     implementation libs.bundles.retrofit
     implementation libs.okhttp.logger
     implementation libs.hilt.android
-    implementation "com.squareup.moshi:moshi:1.13.0"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
+    implementation libs.bundles.moshi
+    ksp libs.moshi.codegen
     kapt libs.hilt.compiler
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetPersonDetailUseCase @Inject constructor(
     private val peopleRepository: PeopleRepository,
 ) {
-    fun getPerson(personId: String): Flow<PersonModel> {
+    fun getPerson(personId: Int): Flow<PersonModel> {
         return peopleRepository.getPersonDetail(personId)
     }
 }

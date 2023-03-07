@@ -61,4 +61,5 @@ dependencies {
     implementation project(":library:navigator")
     implementation project(":feature:setting")
     implementation project(":feature:people")
+    implementation project(":feature:schedule")
 }

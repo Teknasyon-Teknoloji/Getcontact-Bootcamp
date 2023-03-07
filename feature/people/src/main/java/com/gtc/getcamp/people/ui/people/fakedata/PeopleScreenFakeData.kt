@@ -8,32 +8,32 @@ class PeopleScreenFakeData :
     override val values: Sequence<List<PersonModel>> = sequenceOf(
         listOf(
             PersonModel(
-                personId = "",
+                personId = 1,
                 personName = "GTC Team",
                 personImage = "https://cdn.iha.com.tr/Contents/images/2018/32/2599418.jpg",
                 personAbout = "GTC Takımıdır",
                 personLinks = emptyList()
             ) ,PersonModel(
-                personId = "",
+                personId = 2,
                 personName = "GTC Team",
                 personImage = "https://cdn.iha.com.tr/Contents/images/2018/32/2599418.jpg",
                 personAbout = "GTC Takımıdır",
                 personLinks = emptyList()
             ) ,PersonModel(
-                personId = "",
+                personId = 3,
                 personName = "GTC Team",
                 personImage = "https://cdn.iha.com.tr/Contents/images/2018/32/2599418.jpg",
                 personAbout = "GTC Takımıdır",
                 personLinks = emptyList()
             ) ,PersonModel(
-                personId = "",
+                personId = 4,
                 personName = "GTC Team",
                 personImage = "https://cdn.iha.com.tr/Contents/images/2018/32/2599418.jpg",
                 personAbout = "GTC Takımıdır",
                 personLinks = emptyList()
             ) ,
             PersonModel(
-                personId = "",
+                personId = 5,
                 personName = "GTC Team",
                 personImage = "https://cdn.iha.com.tr/Contents/images/2018/32/2599418.jpg",
                 personAbout = "GTC Takımıdır",

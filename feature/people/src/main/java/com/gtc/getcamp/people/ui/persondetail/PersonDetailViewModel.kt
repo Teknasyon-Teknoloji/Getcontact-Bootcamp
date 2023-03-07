@@ -21,7 +21,7 @@ class PersonDetailViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     private val personId by lazy {
-        savedStateHandle.get<String>("personId").orEmpty()
+        savedStateHandle.get<Int>("personId") ?: -1
     }
 
     init {
