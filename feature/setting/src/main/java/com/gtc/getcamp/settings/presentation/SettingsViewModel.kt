@@ -1,4 +1,4 @@
-package com.gtc.getcamp.settings.ui
+package com.gtc.getcamp.settings.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +20,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val settingsUiState: StateFlow<SettingsUiState> =
-        getUserPrefUseCase.get()
+        getUserPrefUseCase.invoke()
             .map { userPref ->
                 SettingsUiState.Success(
                     userSettings = UserSettings(
@@ -36,7 +36,7 @@ class SettingsViewModel @Inject constructor(
 
     fun updateThemeConfig(themeConfig: ThemeConfig) {
         viewModelScope.launch {
-            updateUserPrefUseCase.update(themeConfig)
+            updateUserPrefUseCase.invoke(themeConfig)
         }
     }
 }

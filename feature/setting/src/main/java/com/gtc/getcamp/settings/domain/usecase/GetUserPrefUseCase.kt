@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetUserPrefUseCase @Inject constructor(
     private val userPrefRepository: UserPrefRepository,
 ) {
-    fun get(): Flow<ThemeConfig> {
+    operator fun invoke(): Flow<ThemeConfig> {
         return userPrefRepository.getThemeConfig()
     }
 }

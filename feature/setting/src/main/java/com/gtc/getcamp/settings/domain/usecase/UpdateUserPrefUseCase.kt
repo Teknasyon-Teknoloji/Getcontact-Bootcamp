@@ -7,7 +7,7 @@ import javax.inject.Inject
 class UpdateUserPrefUseCase @Inject constructor(
     private val userPrefRepository: UserPrefRepository,
 ) {
-    suspend fun update(themeConfig: ThemeConfig) {
+    suspend operator fun invoke(themeConfig: ThemeConfig) {
         return userPrefRepository.setThemeConfig(themeConfig)
     }
 }

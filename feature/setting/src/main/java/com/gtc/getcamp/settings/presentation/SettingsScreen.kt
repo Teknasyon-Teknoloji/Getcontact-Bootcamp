@@ -1,4 +1,4 @@
-package com.gtc.getcamp.settings.ui
+package com.gtc.getcamp.settings.presentation
 
 import android.content.Intent
 import android.net.Uri
@@ -13,7 +13,6 @@ import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberBottomSheetState
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -56,7 +55,7 @@ fun SettingsContent(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed,
+        initialValue = BottomSheetValue.Expanded,
         confirmStateChange = { it != BottomSheetValue.Expanded },
     )
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -97,24 +96,8 @@ fun SettingsContent(
         },
         sheetPeekHeight = 0.dp,
         sheetShape = RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp),
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Button(onClick = {
-                coroutineScope.launch {
-                    if (bottomSheetState.isExpanded) {
-                        bottomSheetState.collapse()
-                    } else {
-                        bottomSheetState.expand()
-                    }
-                }
-            }) {
-                Text(text = "Open ")
-            }
-        }
+    ){
+
     }
 }
 
@@ -159,7 +142,7 @@ private fun AboutContent() {
         Divider(Modifier.padding(vertical = 16.dp))
         TextLink(
             text = "Web Page",
-            url = "http://getcamp2023.com"
+            url = WEB_PAGE_LINK
         )
 
         Text(
@@ -248,3 +231,5 @@ private fun PreviewSettingsDialogLoading() {
         )
     }
 }
+
+private const val WEB_PAGE_LINK = "https://policies.google.com/privacy"
