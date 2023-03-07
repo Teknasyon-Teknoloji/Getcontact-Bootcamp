@@ -20,7 +20,6 @@ class PeopleViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<PeopleScreenState>(PeopleScreenState.LoadingState)
     val uiState = _uiState.asStateFlow()
 
-
     init {
         fetchPeople()
     }
@@ -41,7 +40,7 @@ class PeopleViewModel @Inject constructor(
         }
     }
 
-    private fun openPeopleDetailScreen(personId: String) {
-        navigator.navigateTo("/persons/${personId}")
+    private fun openPeopleDetailScreen(personId: Int) {
+        navigator.navigateTo("/person/${personId}")
     }
 }

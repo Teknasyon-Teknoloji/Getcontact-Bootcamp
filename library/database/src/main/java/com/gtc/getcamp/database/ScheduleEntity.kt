@@ -13,16 +13,16 @@ data class ScheduleEntity(
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "date") val date: String?,
     @ColumnInfo(name = "hours") val hours: String?,
+    @ColumnInfo(name = "platform") val platform: String?,
     @ColumnInfo(name = "isBookmarked") val isBookmarked: Boolean?,
     @ColumnInfo(name = "topics") val topics: List<String>?,
-    @ColumnInfo(name = "speakerPersonId") val speakerPersonId: Int,
+    @ColumnInfo(name = "speakerPersonId") val speakerPersonId: Int?,
+    @ColumnInfo(name = "imageUrl") val imageUrl: String?,
 )
 
-data class ScheduleAndPeopleEntity(
-    @Embedded val person: PersonEntity,
-    @Relation(
-        parentColumn = "personId",
-        entityColumn = "speakerPersonId"
-    )
-    val schedules: List<ScheduleEntity>
+data class ScheduleWithPersonEmbed(
+    @Embedded
+    var schedule: ScheduleEntity,
+    @Relation(parentColumn = "speakerPersonId", entityColumn = "personId")
+    var person: PersonEntity?
 )

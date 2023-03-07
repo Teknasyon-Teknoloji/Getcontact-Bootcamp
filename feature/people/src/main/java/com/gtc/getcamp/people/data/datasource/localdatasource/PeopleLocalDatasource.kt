@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface PeopleLocalDatasource {
     suspend fun getPeople(): Flow<List<PersonEntity>>
     suspend fun insertPeople(people: List<PersonEntity>)
-    suspend fun getPerson(personId: String): Flow<PersonEntity>
+    suspend fun getPerson(personId: Int): Flow<PersonEntity>
     suspend fun insertPerson(personEntity: PersonEntity)
 }

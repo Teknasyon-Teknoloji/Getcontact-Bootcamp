@@ -14,9 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.gtc.getcamp.people.domain.model.PersonModel
-import com.gtc.getcamp.people.ui.component.NetworkImage
-import com.gtc.getcamp.people.ui.component.NetworkImageType
 import com.gtc.getcamp.people.ui.people.fakedata.PersonDetailScreenFakeData
 import com.gtc.getcamp.people.ui.persondetail.state.PersonDetailScreenState
 
@@ -40,12 +39,10 @@ fun PersonDetailScreen(
 @Composable
 fun PersonDetailContent(person: PersonModel) {
     Column {
-        NetworkImage(
-            url = person.personImage,
-            networkImageType = NetworkImageType.ResizeNetworkImageType(
-                Modifier
-                    .fillMaxWidth()
-            ),
+        AsyncImage(
+            model = person.personImage,
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth()
         )
         Text(
             modifier = Modifier.padding(8.dp),

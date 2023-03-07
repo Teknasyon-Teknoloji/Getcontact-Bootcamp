@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PeopleRepositoryImpl @Inject constructor(
-    private val peopleLocalDatasource: PeopleLocalDatasource,
+    private val peopleLocalDataSource: PeopleLocalDatasource,
     private val peopleRemoteDataSource: PeopleRemoteDataSource,
     private val personEntityToPersonMapper: PersonEntityToPersonMapper,
     private val personDtoToPersonEntityMapper: PersonDtoToPersonEntityMapper,
@@ -24,7 +24,7 @@ class PeopleRepositoryImpl @Inject constructor(
 
     override fun getPeople(): Flow<List<PersonModel>> = channelFlow {
         launch {
-            peopleLocalDatasource.getPeople().collect { persons ->
+            peopleLocalDataSource.getPeople().collect { persons ->
                 persons.map { person ->
                     personEntityToPersonMapper.map(person)
                 }.apply {
@@ -34,21 +34,21 @@ class PeopleRepositoryImpl @Inject constructor(
         }
         launch {
             getRemotePeople().collect { persons ->
-                peopleLocalDatasource.insertPeople(persons)
+                peopleLocalDataSource.insertPeople(persons)
             }
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getPersonDetail(personId: String): Flow<PersonModel> = channelFlow {
+    override fun getPersonDetail(personId: Int): Flow<PersonModel> = channelFlow {
         launch {
-            peopleLocalDatasource.getPerson(personId).collect { personEntity ->
+            peopleLocalDataSource.getPerson(personId).collect { personEntity ->
                 val person = personEntityToPersonMapper.map(personEntity)
                 send(person)
             }
         }
         launch {
             getRemotePersonDetail(personId).collect { person ->
-                peopleLocalDatasource.insertPerson(person)
+                peopleLocalDataSource.insertPerson(person)
             }
         }
     }.flowOn(Dispatchers.IO)
@@ -61,7 +61,7 @@ class PeopleRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun getRemotePersonDetail(personId: String): Flow<PersonEntity> = flow {
+    private suspend fun getRemotePersonDetail(personId: Int): Flow<PersonEntity> = flow {
         val person = peopleRemoteDataSource.getPersonDetail(personId)
         val personEntity = personDtoToPersonEntityMapper.map(person)
         emit(personEntity)
