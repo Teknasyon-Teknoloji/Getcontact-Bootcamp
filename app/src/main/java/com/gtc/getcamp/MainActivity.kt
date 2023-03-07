@@ -4,31 +4,35 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.navigator.NavigatorGraphApi
 import com.gtc.getcamp.navigator.registerGraph
 import com.gtc.getcamp.people.ui.navigator.PeopleNavigator
-import com.gtc.getcamp.settings.domain.model.ThemeConfig
-import com.gtc.getcamp.settings.ui.navigator.SettingsNavigator
 import com.gtc.getcamp.schedule.presentation.ScheduleNavigator
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.presentation.navigator.SettingsNavigator
 import com.gtc.getcamp.ui.theme.GetcampTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -42,7 +46,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var navigator: Navigator
 
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
 
     @Inject
     lateinit var peopleNavigator: PeopleNavigator
@@ -52,6 +56,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var settingsNavigator: SettingsNavigator
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +101,23 @@ fun AppGraph(
     }
     val navController = rememberNavController()
     navigator.setNavHostController(navController)
+
+
     GetcampTheme {
         Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = selectedItem.name,
+                    actionIcon = Icons.Rounded.Settings,
+                    actionIconContentDescription = "Settings",
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = Color.Transparent,
+                    ),
+                    onActionClick = {
+                        navigator.navigateTo("/settings")
+                    },
+                )
+            },
             bottomBar = {
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -143,6 +163,40 @@ fun AppGraph(
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBar(
+    title: String,
+    actionIcon: ImageVector,
+    actionIconContentDescription: String?,
+    modifier: Modifier = Modifier,
+    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    onActionClick: () -> Unit = {},
+) {
+    CenterAlignedTopAppBar(
+        modifier = modifier.shadow(elevation = 1.dp),
+        title = {
+            Text(
+                text = title,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                )
+            )
+        },
+        actions = {
+            IconButton(onClick = onActionClick) {
+                Icon(
+                    imageVector = actionIcon,
+                    contentDescription = actionIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+        },
+        colors = colors,
+    )
 }
 
 val bottomNavItems = listOf(

@@ -17,7 +17,7 @@ class MainActivityViewModel @Inject constructor(
     getUserPrefUseCase: GetUserPrefUseCase,
 ) : ViewModel() {
 
-    val uiState: StateFlow<MainActivityUiState> = getUserPrefUseCase.get().map {
+    val uiState: StateFlow<MainActivityUiState> = getUserPrefUseCase.invoke().map {
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,
