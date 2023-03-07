@@ -40,7 +40,7 @@ class PeopleViewModel @Inject constructor(
         }
     }
 
-    private fun openPeopleDetailScreen(personId: String) {
+    private fun openPeopleDetailScreen(personId: Int) {
         navigator.navigateTo("/person/${personId}")
     }
 }

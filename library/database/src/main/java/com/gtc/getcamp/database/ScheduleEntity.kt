@@ -8,7 +8,7 @@ import androidx.room.Relation
 
 @Entity("schedule")
 data class ScheduleEntity(
-    @PrimaryKey val scheduleId: String,
+    @PrimaryKey val scheduleId: Int,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "date") val date: String?,
@@ -16,7 +16,7 @@ data class ScheduleEntity(
     @ColumnInfo(name = "platform") val platform: String?,
     @ColumnInfo(name = "isBookmarked") val isBookmarked: Boolean?,
     @ColumnInfo(name = "topics") val topics: List<String>?,
-    @ColumnInfo(name = "speakerPersonId") val speakerPersonId: String?,
+    @ColumnInfo(name = "speakerPersonId") val speakerPersonId: Int?,
 )
 
 data class ScheduleWithPersonEmbed(

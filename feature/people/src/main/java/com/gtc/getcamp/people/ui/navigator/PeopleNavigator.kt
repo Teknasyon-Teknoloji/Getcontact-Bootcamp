@@ -18,7 +18,7 @@ class PeopleNavigator @Inject constructor(): NavigatorGraphApi {
             PeopleScreen()
         }
         navGraphBuilder.composable("/person/{personId}",
-            arguments = listOf(navArgument("personId") { type = NavType.StringType })
+            arguments = listOf(navArgument("personId") { type = NavType.IntType })
         ){
             PersonDetailScreen()
         }

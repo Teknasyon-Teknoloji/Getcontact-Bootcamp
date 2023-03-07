@@ -1,7 +1,7 @@
 package com.gtc.getcamp.schedule.domain.model
 
 data class ScheduleModel(
-    val scheduleId: String,
+    val scheduleId: Int,
     val title: String,
     val description: String?,
     val date: String?,

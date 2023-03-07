@@ -1,6 +1,5 @@
 package com.gtc.getcamp.network.api.schedule
 
-import com.gtc.getcamp.network.api.person.PersonDto
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.*
@@ -8,7 +7,7 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 data class ScheduleDto(
     @field:Json(name = "id")
-    val id: String,
+    val id: Int,
     @field:Json(name = "title")
     val title: String?,
     @field:Json(name = "description")
@@ -20,7 +19,7 @@ data class ScheduleDto(
     @field:Json(name = "platform")
     val platform: String?,
     @field:Json(name = "speaker")
-    val speaker: PersonDto?,
+    val speakerId: Int?,
     @field:Json(name = "topics")
     val topics: List<String>?,
 )

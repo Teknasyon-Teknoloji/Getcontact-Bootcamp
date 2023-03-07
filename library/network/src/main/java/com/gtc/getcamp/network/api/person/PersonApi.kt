@@ -9,6 +9,6 @@ interface PersonApi {
     suspend fun getAll(): List<PersonDto>
 
     @GET("person/detail/{id}")
-    suspend fun get(@Path("id") id: String): PersonDto
+    suspend fun get(@Path("id") id: Int): PersonDto
 
 }

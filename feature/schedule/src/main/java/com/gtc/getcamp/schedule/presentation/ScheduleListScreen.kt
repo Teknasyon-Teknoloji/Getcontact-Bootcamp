@@ -99,7 +99,7 @@ fun ListItem(item: ScheduleModel) {
 fun PreviewListItem() {
     ListItem(
         item = ScheduleModel(
-            "1",
+            1,
             "Modularization",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore",
             date = "Now",
@@ -108,7 +108,7 @@ fun PreviewListItem() {
             isBookmarked = false,
             topics = listOf(),
             speakerPerson = SpeakerPersonModel(
-                personId = "10",
+                personId = 10,
                 personName = "Alireza",
                 personImage = "https://media.licdn.com/dms/image/C4D03AQE8Q6m_811XQA/profile-displayphoto-shrink_100_100/0/1644508106852?e=1681948800&v=beta&t=jrGX935rJ1Z3tD1hYkY8Y-JZD4k7OSA2Muz-xVU0ibU",
                 personAbout = "HERE IS A PRESENTATION",

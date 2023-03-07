@@ -38,7 +38,7 @@ fun PeopleScreen(
 @Composable
 fun UsersContent(
     people: List<PersonModel>,
-    onClickPerson: (personId: String) -> Unit,
+    onClickPerson: (personId: Int) -> Unit,
 ) {
     LazyColumn {
         items(people) {

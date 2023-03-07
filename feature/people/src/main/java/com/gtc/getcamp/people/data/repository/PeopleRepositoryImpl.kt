@@ -39,7 +39,7 @@ class PeopleRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getPersonDetail(personId: String): Flow<PersonModel> = channelFlow {
+    override fun getPersonDetail(personId: Int): Flow<PersonModel> = channelFlow {
         launch {
             peopleLocalDataSource.getPerson(personId).collect { personEntity ->
                 val person = personEntityToPersonMapper.map(personEntity)
@@ -61,7 +61,7 @@ class PeopleRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun getRemotePersonDetail(personId: String): Flow<PersonEntity> = flow {
+    private suspend fun getRemotePersonDetail(personId: Int): Flow<PersonEntity> = flow {
         val person = peopleRemoteDataSource.getPersonDetail(personId)
         val personEntity = personDtoToPersonEntityMapper.map(person)
         emit(personEntity)

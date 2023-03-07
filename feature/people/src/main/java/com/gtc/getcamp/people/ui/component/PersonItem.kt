@@ -22,7 +22,7 @@ import com.gtc.getcamp.people.domain.model.PersonModel
 @Composable
 fun PeopleItem(
     personModel: PersonModel,
-    onClick: (personId: String) -> Unit,
+    onClick: (personId: Int) -> Unit,
 ) {
     Column {
         Row(

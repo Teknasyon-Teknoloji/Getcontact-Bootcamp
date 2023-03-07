@@ -71,7 +71,7 @@ class ScheduleRepositoryImpl @Inject constructor(
                 platform = scheduleDto.platform,
                 isBookmarked = false,
                 topics = scheduleDto.topics,
-                speakerPersonId = scheduleDto.speaker?.id.orEmpty()
+                speakerPersonId = scheduleDto.speakerId
             )
         }.apply {
             emit(this)

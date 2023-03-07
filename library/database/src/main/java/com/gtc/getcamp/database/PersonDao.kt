@@ -11,7 +11,7 @@ interface PersonDao {
     fun getAll(): Flow<List<PersonEntity>>
 
     @Query("SELECT * FROM person WHERE personId LIKE :personId")
-    fun findById(personId: String): Flow<PersonEntity>
+    fun findById(personId: Int): Flow<PersonEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(person: PersonEntity)

@@ -13,6 +13,6 @@ class PeopleLocalDataSourceImpl @Inject constructor(
 
     override suspend fun getPeople(): Flow<List<PersonEntity>> = personDao.getAll()
     override suspend fun insertPeople(people: List<PersonEntity>) = personDao.insertAll(people)
-    override suspend fun getPerson(personId: String): Flow<PersonEntity> = personDao.findById(personId)
+    override suspend fun getPerson(personId: Int): Flow<PersonEntity> = personDao.findById(personId)
     override suspend fun insertPerson(personEntity: PersonEntity) = personDao.insert(personEntity)
 }
