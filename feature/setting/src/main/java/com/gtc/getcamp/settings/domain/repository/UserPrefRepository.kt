@@ -1,6 +1,6 @@
-package com.gtc.samples.getcamp.feature.settings.domain.repository
+package com.gtc.getcamp.settings.domain.repository
 
-import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
 import kotlinx.coroutines.flow.Flow
 
 interface UserPrefRepository {

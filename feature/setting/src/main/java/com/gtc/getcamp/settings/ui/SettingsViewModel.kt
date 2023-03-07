@@ -1,10 +1,10 @@
-package com.gtc.samples.getcamp.feature.settings.presentation
+package com.gtc.getcamp.settings.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
-import com.gtc.samples.getcamp.feature.settings.domain.usecase.GetUserPrefUseCase
-import com.gtc.samples.getcamp.feature.settings.domain.usecase.UpdateUserPrefUseCase
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.domain.usecase.GetUserPrefUseCase
+import com.gtc.getcamp.settings.domain.usecase.UpdateUserPrefUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +23,7 @@ class SettingsViewModel @Inject constructor(
         getUserPrefUseCase.get()
             .map { userPref ->
                 SettingsUiState.Success(
-                    settings = UserSettings(
+                    userSettings = UserSettings(
                         themeConfig = ThemeConfig.find(userPref.intValue),
                     ),
                 )
@@ -39,13 +39,13 @@ class SettingsViewModel @Inject constructor(
             updateUserPrefUseCase.update(themeConfig)
         }
     }
+}
 
-    data class UserSettings(
-        val themeConfig: ThemeConfig,
-    )
+data class UserSettings(
+    val themeConfig: ThemeConfig,
+)
 
-    sealed interface SettingsUiState {
-        object Loading : SettingsUiState
-        data class Success(val settings: UserSettings) : SettingsUiState
-    }
+sealed interface SettingsUiState {
+    object Loading : SettingsUiState
+    data class Success(val userSettings: UserSettings) : SettingsUiState
 }

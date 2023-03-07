@@ -1,8 +1,8 @@
-package com.gtc.samples.getcamp.feature.settings.data
+package com.gtc.getcamp.settings.data
 
 import com.gtc.getcamp.cache.LocalCacheProvider
-import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
-import com.gtc.samples.getcamp.feature.settings.domain.repository.UserPrefRepository
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.domain.repository.UserPrefRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class UserPrefRepositoryImpl @Inject constructor(
 ) : UserPrefRepository {
 
     override suspend fun setThemeConfig(theme: ThemeConfig) {
-        localCacheProvider.writeValue(PREF_KEY_THEME_CONFIG, theme)
+        localCacheProvider.writeValue(PREF_KEY_THEME_CONFIG, theme.intValue)
     }
 
     override fun getThemeConfig(): Flow<ThemeConfig> {

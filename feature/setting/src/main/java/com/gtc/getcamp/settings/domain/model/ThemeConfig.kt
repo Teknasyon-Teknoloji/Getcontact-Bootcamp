@@ -1,4 +1,4 @@
-package com.gtc.samples.getcamp.feature.settings.domain.model
+package com.gtc.getcamp.settings.domain.model
 
 enum class ThemeConfig(val intValue: Int) {
     FOLLOW_SYSTEM(1),

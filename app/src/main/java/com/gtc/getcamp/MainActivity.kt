@@ -18,8 +18,9 @@ import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.navigator.NavigatorGraphApi
 import com.gtc.getcamp.navigator.registerGraph
 import com.gtc.getcamp.people.ui.navigator.PeopleNavigator
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.ui.navigator.SettingsNavigator
 import com.gtc.getcamp.ui.theme.GetcampTheme
-import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var peopleNavigator: PeopleNavigator
+
+    @Inject
+    lateinit var settingsNavigator: SettingsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +60,9 @@ class MainActivity : ComponentActivity() {
 
             AppGraph(
                 navigator = navigator,
-                childGraphs = arrayOf(peopleNavigator) ,
-                startDestination = "/persons"
+                childGraphs = arrayOf(peopleNavigator, settingsNavigator) ,
+//                startDestination = "/persons"
+                startDestination = "/settings"
             )
             GetcampTheme(
                 darkTheme = darkTheme

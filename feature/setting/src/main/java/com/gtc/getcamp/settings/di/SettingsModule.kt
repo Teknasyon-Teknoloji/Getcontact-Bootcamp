@@ -1,7 +1,7 @@
-package com.gtc.samples.getcamp.feature.settings.di
+package com.gtc.getcamp.settings.di
 
-import com.gtc.samples.getcamp.feature.settings.data.UserPrefRepositoryImpl
-import com.gtc.samples.getcamp.feature.settings.domain.repository.UserPrefRepository
+import com.gtc.getcamp.settings.data.UserPrefRepositoryImpl
+import com.gtc.getcamp.settings.domain.repository.UserPrefRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

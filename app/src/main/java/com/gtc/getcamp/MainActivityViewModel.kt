@@ -2,8 +2,8 @@ package com.gtc.getcamp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gtc.samples.getcamp.feature.settings.domain.model.ThemeConfig
-import com.gtc.samples.getcamp.feature.settings.domain.usecase.GetUserPrefUseCase
+import com.gtc.getcamp.settings.domain.model.ThemeConfig
+import com.gtc.getcamp.settings.domain.usecase.GetUserPrefUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
