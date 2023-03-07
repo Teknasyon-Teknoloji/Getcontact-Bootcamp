@@ -9,13 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddCircle
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Star
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -49,7 +43,7 @@ class MainActivity : ComponentActivity() {
             AppGraph(
                 navigator = navigator,
                 childGraphs = arrayOf(peopleNavigator, scheduleNavigator),
-                startDestination = "/schedule"
+                startDestination = "/people"
             )
         }
     }
@@ -74,7 +68,10 @@ fun AppGraph(
                         val selected = item.route == navigator.getCurrentRoute()
                         NavigationBarItem(
                             selected = selected,
-                            onClick = { navigator.navigateTo(item.route) },
+                            onClick = {
+                                navigator.popUp(navigator.getCurrentRoute())
+                                navigator.navigateTo(item.route)
+                            },
                             label = {
                                 Text(
                                     text = item.name,
@@ -103,6 +100,11 @@ fun AppGraph(
 
 val bottomNavItems = listOf(
     BottomNavItem(
+        name = "People",
+        route = "/people",
+        icon = Icons.Rounded.Person,
+    ),
+    BottomNavItem(
         name = "Android",
         route = "/schedule/android",
         icon = Icons.Rounded.AddCircle,
@@ -111,11 +113,6 @@ val bottomNavItems = listOf(
         name = "iOS",
         route = "/schedule/ios",
         icon = Icons.Rounded.Star,
-    ),
-    BottomNavItem(
-        name = "People",
-        route = "/people",
-        icon = Icons.Rounded.Person,
     ),
 )
 

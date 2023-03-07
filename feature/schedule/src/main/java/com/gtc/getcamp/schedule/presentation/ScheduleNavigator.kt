@@ -23,15 +23,5 @@ class ScheduleNavigator @Inject constructor() : NavigatorGraphApi {
         ) {
             ScheduleListScreen()
         }
-        navGraphBuilder.composable(
-            "/schedule",
-            arguments = listOf(
-                navArgument("platform") {
-                    type = NavType.StringType
-                    defaultValue = "android"
-                })
-        ) {
-            ScheduleListScreen()
-        }
     }
 }
