@@ -61,7 +61,7 @@ fun ListItem(item: ScheduleModel) {
             .fillMaxWidth()
     ) {
         AsyncImage(
-            model = item.speakerPerson?.personImage.orEmpty(),
+            model = item.imageUrl ?: item.speakerPerson?.personImage.orEmpty(),
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)
@@ -113,7 +113,8 @@ fun PreviewListItem() {
                 personImage = "https://media.licdn.com/dms/image/C4D03AQE8Q6m_811XQA/profile-displayphoto-shrink_100_100/0/1644508106852?e=1681948800&v=beta&t=jrGX935rJ1Z3tD1hYkY8Y-JZD4k7OSA2Muz-xVU0ibU",
                 personAbout = "HERE IS A PRESENTATION",
                 personLinks = listOf()
-            )
+            ),
+            imageUrl = null,
         )
     )
 }

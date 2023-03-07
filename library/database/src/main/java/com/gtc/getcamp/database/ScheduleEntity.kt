@@ -17,6 +17,7 @@ data class ScheduleEntity(
     @ColumnInfo(name = "isBookmarked") val isBookmarked: Boolean?,
     @ColumnInfo(name = "topics") val topics: List<String>?,
     @ColumnInfo(name = "speakerPersonId") val speakerPersonId: Int?,
+    @ColumnInfo(name = "imageUrl") val imageUrl: String?,
 )
 
 data class ScheduleWithPersonEmbed(

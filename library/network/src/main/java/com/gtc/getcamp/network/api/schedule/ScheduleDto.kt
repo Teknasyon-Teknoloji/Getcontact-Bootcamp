@@ -22,4 +22,6 @@ data class ScheduleDto(
     val speakerId: Int?,
     @field:Json(name = "topics")
     val topics: List<String>?,
+    @field:Json(name = "image_url")
+    val imageUrl: String?,
 )

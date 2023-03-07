@@ -9,5 +9,6 @@ data class ScheduleModel(
     val platform: String?,
     val isBookmarked: Boolean?,
     val topics: List<String>?,
-    val speakerPerson: SpeakerPersonModel?
+    val speakerPerson: SpeakerPersonModel?,
+    val imageUrl: String?,
 )

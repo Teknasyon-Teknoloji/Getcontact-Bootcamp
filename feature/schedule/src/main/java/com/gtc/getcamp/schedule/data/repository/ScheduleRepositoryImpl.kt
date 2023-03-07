@@ -41,7 +41,8 @@ class ScheduleRepositoryImpl @Inject constructor(
                                     personAbout = it.about.orEmpty(),
                                     personLinks = it.links
                                 )
-                            }
+                            },
+                            imageUrl = embed.schedule.imageUrl
                         )
                     }.apply {
                         send(this)
@@ -71,7 +72,8 @@ class ScheduleRepositoryImpl @Inject constructor(
                 platform = scheduleDto.platform,
                 isBookmarked = false,
                 topics = scheduleDto.topics,
-                speakerPersonId = scheduleDto.speakerId
+                speakerPersonId = scheduleDto.speakerId,
+                imageUrl = scheduleDto.imageUrl,
             )
         }.apply {
             emit(this)
