@@ -1,5 +1,6 @@
 package com.gtc.getcamp.schedule.presentation.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +40,10 @@ fun ScheduleListScreen(
             val state = (uiState as SuccessState)
             LazyColumn {
                 itemsIndexed(state.schedules) { index, item ->
-                    ListItem(item = item)
+                    ListItem(
+                        item = item,
+                        onClick = { scheduleListViewModel.navigateToDetail(item.scheduleId.toString()) },
+                    )
                     if (index < (state.schedules.size - 1)) {
                         Divider(color = Color.Gray.copy(alpha = 0.5f), thickness = 0.5.dp)
                     }
@@ -54,11 +58,17 @@ fun ScheduleListScreen(
 
 
 @Composable
-fun ListItem(item: ScheduleModel) {
+fun ListItem(
+    item: ScheduleModel,
+    onClick: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
+            .clickable {
+                onClick()
+            }
     ) {
         AsyncImage(
             model = item.imageUrl ?: item.speakerPerson?.personImage.orEmpty(),
@@ -115,6 +125,7 @@ fun PreviewListItem() {
                 personLinks = listOf()
             ),
             imageUrl = null,
-        )
+        ),
+        onClick = {}
     )
 }
