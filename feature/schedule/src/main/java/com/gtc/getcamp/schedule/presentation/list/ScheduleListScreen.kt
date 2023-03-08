@@ -51,7 +51,7 @@ fun ScheduleListScreen(
     }
     when (uiState) {
         LoadingState -> {
-            Text(text = "LOADING")
+
         }
         is SuccessState -> {
             val state = (uiState as SuccessState)
@@ -91,7 +91,7 @@ fun ScheduleListScreen(
             }
         }
         is ErrorState -> {
-            Text(text = "ERROR")
+
         }
     }
 }

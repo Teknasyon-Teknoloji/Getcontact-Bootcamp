@@ -20,13 +20,19 @@ class ScheduleRepositoryImpl @Inject constructor(
 ) : ScheduleRepository {
 
     override fun getScheduleList(query: String, platform: Platform): Flow<List<ScheduleModel>> =
-        flow {
-            val stream = scheduleLocalDataSource.getScheduleList(query, platform.toString())
-                .map { schedules ->
-                    if (schedules.isEmpty()) getListFromRemote().insertToLocal()
-                    schedules.toScheduleModels()
-                }
-            emitAll(stream)
+        channelFlow {
+            launch {
+                scheduleLocalDataSource.getScheduleList(query, platform.toString())
+                    .map { schedules ->
+                        schedules.toScheduleModels()
+                    }
+                    .collect {
+                        send(it)
+                    }
+            }
+            launch {
+                getListFromRemote().insertToLocal()
+            }
         }.flowOn(Dispatchers.IO)
 
     override fun getBookmarks(): Flow<List<ScheduleModel>> = flow {
