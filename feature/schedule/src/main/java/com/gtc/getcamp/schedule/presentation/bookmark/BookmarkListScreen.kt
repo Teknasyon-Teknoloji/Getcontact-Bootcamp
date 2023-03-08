@@ -32,6 +32,9 @@ fun BookmarkListScreen(
                         item = item,
                         onBookmark = {
                             viewModel.toggleBookmark(item)
+                        },
+                        onClick = {
+                            viewModel.navigateToDetail(item.scheduleId)
                         }
                     )
                     if (index < (state.schedules.size - 1)) {

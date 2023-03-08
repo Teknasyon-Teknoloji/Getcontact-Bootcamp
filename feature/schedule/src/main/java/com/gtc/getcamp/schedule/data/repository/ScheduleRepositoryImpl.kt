@@ -4,6 +4,7 @@ import com.gtc.getcamp.network.api.schedule.ScheduleDto
 import com.gtc.getcamp.schedule.data.datasource.local.ScheduleLocalDataSource
 import com.gtc.getcamp.schedule.data.datasource.remote.ScheduleRemoteDataSource
 import com.gtc.getcamp.schedule.data.mapper.toScheduleEntities
+import com.gtc.getcamp.schedule.data.mapper.toScheduleModel
 import com.gtc.getcamp.schedule.data.mapper.toScheduleModels
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 import com.gtc.getcamp.schedule.domain.repository.Platform
@@ -32,7 +33,15 @@ class ScheduleRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getScheduleDetail(scheduleId: Int): Flow<ScheduleModel> {
-        TODO("Not yet implemented")
+        return channelFlow {
+            launch {
+                scheduleLocalDataSource.getScheduleDetail(scheduleId).collect { embed ->
+                    embed.toScheduleModel().apply {
+                        send(this)
+                    }
+                }
+            }
+        }
     }
 
     override fun toggleBookMark(scheduleId: Int): Flow<Unit> = flow<Unit> {

@@ -3,6 +3,7 @@ package com.gtc.getcamp.schedule.presentation.list
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -77,7 +78,10 @@ fun ScheduleListScreen(
                             item = item,
                             onBookmark = {
                                 viewModel.toggleBookmark(item)
-                            }
+                            },
+                            onClick = {
+                                viewModel.navigateToDetail(item.scheduleId)
+                            },
                         )
                         if (index < (state.schedules.size - 1)) {
                             Divider(color = Color.Gray.copy(alpha = 0.5f), thickness = 0.5.dp)
@@ -140,12 +144,16 @@ private fun TopBar(
 fun LazyItemScope.ListItem(
     item: ScheduleModel,
     onBookmark: () -> Unit,
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .animateItemPlacement()
+            .clickable {
+                onClick()
+            }
     ) {
         AsyncImage(
             model = item.imageUrl ?: item.speakerPerson?.personImage.orEmpty(),
