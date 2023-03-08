@@ -11,6 +11,7 @@ import com.gtc.getcamp.schedule.domain.repository.Platform
 import com.gtc.getcamp.schedule.domain.repository.ScheduleRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(
