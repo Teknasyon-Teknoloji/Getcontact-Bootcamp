@@ -39,4 +39,7 @@ class BookmarkListViewModel @Inject constructor(
         }
     }
 
+    fun navigateToDetail(scheduleId: Int) {
+        return navigator.navigateTo("/schedule/${scheduleId}")
+    }
 }
