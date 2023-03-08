@@ -53,51 +53,29 @@ fun SettingsContent(
     settingsUiState: SettingsUiState,
     onChangeThemeConfig: (themeConfig: ThemeConfig) -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    val bottomSheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Expanded,
-        confirmStateChange = { it != BottomSheetValue.Expanded },
-    )
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = bottomSheetState
-    )
-
-    BackHandler(bottomSheetState.isExpanded) {
-        coroutineScope.launch { bottomSheetState.collapse() }
-    }
-
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetContent = {
-            Column(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 30.dp)
-            ) {
-                Text(
-                    text = "Settings",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp,
-                    ),
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 30.dp)
+    ) {
+        Text(
+            text = "Settings",
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+            ),
+        )
+        Divider(Modifier.padding(vertical = 16.dp))
+        when (settingsUiState) {
+            is SettingsUiState.Success -> {
+                SettingsPanel(
+                    settings = settingsUiState.userSettings,
+                    onChangeThemeConfig = onChangeThemeConfig
                 )
-                Divider(Modifier.padding(vertical = 16.dp))
-                when (settingsUiState) {
-                    is SettingsUiState.Success -> {
-                        SettingsPanel(
-                            settings = settingsUiState.userSettings,
-                            onChangeThemeConfig = onChangeThemeConfig
-                        )
-                    }
-                    SettingsUiState.Loading -> {
-                        // TODO show progress
-                    }
-                }
-                AboutContent()
             }
-        },
-        sheetPeekHeight = 0.dp,
-        sheetShape = RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp),
-    ){
-
+            SettingsUiState.Loading -> {
+                // TODO show progress
+            }
+        }
+        AboutContent()
     }
 }
 

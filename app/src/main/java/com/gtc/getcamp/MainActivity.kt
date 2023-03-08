@@ -5,11 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.SwipeableDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,6 +32,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.navigator.NavigatorGraphApi
 import com.gtc.getcamp.navigator.registerGraph
@@ -89,7 +98,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialNavigationApi::class)
 @Composable
 fun AppGraph(
     navigator: Navigator,
@@ -99,66 +108,75 @@ fun AppGraph(
     var selectedItem by remember {
         mutableStateOf(bottomNavItems[0])
     }
-    val navController = rememberNavController()
+    val bottomSheetNavigator = rememberBottomSheetNavigator(skipHalfExpanded = true)
+
+    val navController = rememberNavController(
+        bottomSheetNavigator
+    )
+
     navigator.setNavHostController(navController)
 
-
     GetcampTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = selectedItem.name,
-                    actionIcon = Icons.Rounded.Settings,
-                    actionIconContentDescription = "Settings",
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.Transparent,
-                    ),
-                    onActionClick = {
-                        navigator.navigateTo("/settings")
-                    },
-                )
-            },
-            bottomBar = {
-                NavigationBar(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.secondary,
-                ) {
-                    bottomNavItems.forEach { item ->
-                        val selected = item == selectedItem
-                        NavigationBarItem(
-                            selected = selected,
-                            onClick = {
-                                selectedItem = item
-                                navigator.popUp(navigator.getCurrentRoute())
-                                navigator.navigateTo(item.route)
-                            },
-                            label = {
-                                Text(
-                                    text = item.name,
-                                    fontWeight = FontWeight.SemiBold,
-                                )
-                            },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(id = item.icon),
-                                    contentDescription = "${item.name} Icon",
-                                )
-                            },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                indicatorColor = MaterialTheme.colorScheme.primary,
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
-                            ),
-                        )
-                    }
-                }
-            },
+        ModalBottomSheetLayout(
+            bottomSheetNavigator = bottomSheetNavigator,
+            sheetShape = RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp)
         ) {
-            Box(modifier = Modifier.padding(it)) {
-                NavHost(navController = navController, startDestination = startDestination) {
-                    registerGraph(*childGraphs)
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = selectedItem.name,
+                        actionIcon = Icons.Rounded.Settings,
+                        actionIconContentDescription = "Settings",
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Color.Transparent,
+                        ),
+                        onActionClick = {
+                            navigator.navigateTo("/settings")
+                        },
+                    )
+                },
+                bottomBar = {
+                    NavigationBar(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.secondary,
+                    ) {
+                        bottomNavItems.forEach { item ->
+                            val selected = item == selectedItem
+                            NavigationBarItem(
+                                selected = selected,
+                                onClick = {
+                                    selectedItem = item
+                                    navigator.popUp(navigator.getCurrentRoute())
+                                    navigator.navigateTo(item.route)
+                                },
+                                label = {
+                                    Text(
+                                        text = item.name,
+                                        fontWeight = FontWeight.SemiBold,
+                                    )
+                                },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(id = item.icon),
+                                        contentDescription = "${item.name} Icon",
+                                    )
+                                },
+                                colors = NavigationBarItemDefaults.colors(
+                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    indicatorColor = MaterialTheme.colorScheme.primary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                    unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                ),
+                            )
+                        }
+                    }
+                },
+            ) {
+                Box(modifier = Modifier.padding(it)) {
+                    NavHost(navController = navController, startDestination = startDestination) {
+                        registerGraph(*childGraphs)
+                    }
                 }
             }
         }
@@ -235,5 +253,37 @@ private fun shouldShowInDarkTheme(
             ThemeConfig.DARK -> false
             ThemeConfig.LIGHT -> true
         }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialNavigationApi::class)
+@Composable
+fun rememberBottomSheetNavigator(
+    animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
+    skipHalfExpanded: Boolean = true,
+): BottomSheetNavigator {
+    val sheetState = rememberModalBottomSheetState(
+        ModalBottomSheetValue.Hidden,
+        animationSpec,
+    )
+    if (skipHalfExpanded) {
+        LaunchedEffect(sheetState) {
+            snapshotFlow { sheetState.isAnimationRunning }
+                .collect {
+                    with(sheetState) {
+                        val isOpening = currentValue == ModalBottomSheetValue.Hidden &&
+                                targetValue == ModalBottomSheetValue.HalfExpanded
+                        val isClosing = currentValue == ModalBottomSheetValue.Expanded &&
+                                targetValue == ModalBottomSheetValue.HalfExpanded
+                        when {
+                            isOpening -> animateTo(ModalBottomSheetValue.Expanded)
+                            isClosing -> animateTo(ModalBottomSheetValue.Hidden)
+                        }
+                    }
+                }
+        }
+    }
+    return remember(sheetState) {
+        BottomSheetNavigator(sheetState = sheetState)
     }
 }
