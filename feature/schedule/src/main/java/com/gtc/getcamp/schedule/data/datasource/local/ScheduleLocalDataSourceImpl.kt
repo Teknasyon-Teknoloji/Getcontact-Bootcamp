@@ -10,9 +10,8 @@ class ScheduleLocalDataSourceImpl @Inject constructor(
     private val scheduleDao: ScheduleDao
 ) : ScheduleLocalDataSource {
 
-    override suspend fun getScheduleList(): Flow<List<ScheduleWithPersonEmbed>> {
-        return scheduleDao.getAll()
-    }
+    override suspend fun getScheduleList(query: String, platform: String): Flow<List<ScheduleWithPersonEmbed>> =
+        scheduleDao.getList(query, platform)
 
     override suspend fun getScheduleDetail(scheduleId: Int): Flow<ScheduleWithPersonEmbed> {
         return scheduleDao.findById(scheduleId)

@@ -1,38 +1,48 @@
 package com.gtc.getcamp.schedule.presentation.list
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
+import com.gtc.getcamp.schedule.domain.repository.Platform
 import com.gtc.getcamp.schedule.domain.usecase.GetScheduleListUseCase
 import com.gtc.getcamp.schedule.domain.usecase.ToggleBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class ScheduleListViewModel @Inject constructor(
     private val navigator: Navigator,
     private val getScheduleListUseCase: GetScheduleListUseCase,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ScheduleScreenState>(LoadingState)
     val uiState = _uiState.asStateFlow()
 
+    private val _query = MutableStateFlow("")
+    val query  = _query.asStateFlow()
+
     init {
-        fetchSchedules(savedStateHandle.get<String>("platform") ?: "android")
+        viewModelScope.launch {
+            _query.debounce(500)
+                .distinctUntilChanged()
+                .collectLatest {
+                    fetchSchedules(it, Platform.ANDROID)
+                }
+        }
     }
 
-    private fun fetchSchedules(platform: String?) {
-        viewModelScope.launch {
-            getScheduleListUseCase(platform).collect { _uiState.value = SuccessState(it) }
-        }
+    private suspend fun fetchSchedules(query: String, platform: Platform) {
+        getScheduleListUseCase(query, platform).collect { _uiState.value = SuccessState(it) }
+    }
+
+    fun search(query: String) {
+        _query.value = query
     }
 
     fun navigateToDetail(scheduleId: Int) {

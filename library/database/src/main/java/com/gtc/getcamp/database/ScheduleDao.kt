@@ -8,6 +8,12 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     fun getAll(): Flow<List<ScheduleWithPersonEmbed>>
 
+    @Query("SELECT schedule.* FROM schedule " +
+            "LEFT JOIN person ON person.personId = schedule.speakerPersonId " +
+            "WHERE (schedule.title LIKE '%' || :query || '%' OR person.name LIKE '%' || :query || '%') " +
+            "AND (schedule.platform = :platform OR schedule.platform = 'all')")
+    fun getList(query: String, platform: String): Flow<List<ScheduleWithPersonEmbed>>
+
     @Query("SELECT * FROM schedule WHERE scheduleId LIKE :scheduleId")
     fun findById(scheduleId: Int): Flow<ScheduleWithPersonEmbed>
 
