@@ -1,5 +1,6 @@
 package com.gtc.getcamp.schedule.presentation.bookmark
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Divider
@@ -12,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gtc.getcamp.schedule.presentation.list.ListItem
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookmarkListScreen(
     viewModel: BookmarkListViewModel = hiltViewModel(),

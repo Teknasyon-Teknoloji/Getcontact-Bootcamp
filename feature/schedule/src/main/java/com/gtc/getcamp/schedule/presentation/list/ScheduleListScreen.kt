@@ -1,66 +1,147 @@
 package com.gtc.getcamp.schedule.presentation.list
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.gtc.getcamp.schedule.R
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
-import com.gtc.getcamp.schedule.domain.model.SpeakerPersonModel
-import java.util.*
+import com.gtc.getcamp.schedule.presentation.list.filter.ScheduleFilterScreen
 
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalMaterial3Api::class,
+)
 @Composable
 fun ScheduleListScreen(
     viewModel: ScheduleListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val query by viewModel.query.collectAsState()
 
+    var openFilter by remember {
+        mutableStateOf(false)
+    }
+
+    if (openFilter) {
+        ScheduleFilterScreen(
+            currentPlatform = viewModel.platform,
+            onDismiss = {
+                viewModel.selectPlatform(it)
+                openFilter = false
+            }
+        )
+    }
     when (uiState) {
         LoadingState -> {
-            Text(text = "LOADING")
+
         }
         is SuccessState -> {
             val state = (uiState as SuccessState)
-            LazyColumn {
-                itemsIndexed(state.schedules) { index, item ->
-                    ListItem(
-                        item = item,
-                        onBookmark = {
-                            viewModel.toggleBookmark(item)
+
+            val listState = rememberLazyListState()
+
+            val showTopBar by remember { derivedStateOf { listState.firstVisibleItemIndex == 0 } }
+
+            Column {
+                AnimatedVisibility(visible = showTopBar) {
+                    TopBar(
+                        query = query,
+                        onFilter = {
+                            openFilter = true
                         },
-                        onClick = {
-                            viewModel.navigateToDetail(item.scheduleId)
-                        },
+                        onTextChange = { text ->
+                            viewModel.search(text)
+                        }
                     )
-                    if (index < (state.schedules.size - 1)) {
-                        Divider(color = Color.Gray.copy(alpha = 0.5f), thickness = 0.5.dp)
+                }
+                LazyColumn(state = listState) {
+                    itemsIndexed(state.schedules) { index, item ->
+                        ListItem(
+                            item = item,
+                            onBookmark = {
+                                viewModel.toggleBookmark(item)
+                            },
+                            onClick = {
+                                viewModel.navigateToDetail(item.scheduleId)
+                            },
+                        )
+                        if (index < (state.schedules.size - 1)) {
+                            Divider(color = Color.Gray.copy(alpha = 0.5f), thickness = 0.5.dp)
+                        }
                     }
                 }
             }
         }
         is ErrorState -> {
-            Text(text = "ERROR")
+
+        }
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+private fun TopBar(
+    modifier: Modifier = Modifier,
+    query: String,
+    onFilter: () -> Unit,
+    onTextChange: (text: String) -> Unit,
+) {
+    Row(
+        modifier = modifier.background(MaterialTheme.colorScheme.primary),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        TextField(
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                containerColor = Color.Transparent,
+                textColor = Color.White,
+                placeholderColor = Color.Gray
+            ),
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = 8.dp, horizontal = 16.dp),
+            value = query,
+            placeholder = {
+                Text(text = "Search...")
+            },
+            onValueChange = {
+                onTextChange(it)
+            },
+        )
+        IconButton(onClick = onFilter) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_filter),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 }
 
 
+@ExperimentalFoundationApi
 @Composable
-fun ListItem(
+fun LazyItemScope.ListItem(
     item: ScheduleModel,
     onBookmark: () -> Unit,
     onClick: () -> Unit,
@@ -69,6 +150,7 @@ fun ListItem(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
+            .animateItemPlacement()
             .clickable {
                 onClick()
             }
@@ -114,32 +196,4 @@ fun ListItem(
             )
         }
     }
-}
-
-
-@Preview
-@Composable
-fun PreviewListItem() {
-    ListItem(
-        item = ScheduleModel(
-            1,
-            "Modularization",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore",
-            date = Date(),
-            hours = "14:30 - 15:00",
-            platform = "Android",
-            isBookmarked = false,
-            topics = listOf(),
-            speakerPerson = SpeakerPersonModel(
-                personId = 10,
-                personName = "Alireza",
-                personImage = "https://media.licdn.com/dms/image/C4D03AQE8Q6m_811XQA/profile-displayphoto-shrink_100_100/0/1644508106852?e=1681948800&v=beta&t=jrGX935rJ1Z3tD1hYkY8Y-JZD4k7OSA2Muz-xVU0ibU",
-                personAbout = "HERE IS A PRESENTATION",
-                personLinks = listOf()
-            ),
-            imageUrl = null,
-        ),
-        onBookmark = {},
-        onClick = {},
-    )
 }

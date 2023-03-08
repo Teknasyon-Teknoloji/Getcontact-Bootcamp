@@ -114,14 +114,14 @@ val bottomNavItems = listOf(
         icon = R.drawable.ic_people,
     ),
     BottomNavItem(
-        name = "Android",
-        route = "/schedule/android",
-        icon = R.drawable.ic_android,
+        name = "Schedule",
+        route = "/schedule",
+        icon = R.drawable.ic_schedule,
     ),
     BottomNavItem(
-        name = "iOS",
-        route = "/schedule/ios",
-        icon = R.drawable.ic_ios,
+        name = "Bookmark",
+        route = "/bookmark",
+        icon = R.drawable.ic_bookmark,
     ),
 )
 

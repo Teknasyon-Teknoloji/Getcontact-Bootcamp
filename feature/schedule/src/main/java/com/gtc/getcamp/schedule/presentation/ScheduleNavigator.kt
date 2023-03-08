@@ -16,20 +16,15 @@ class ScheduleNavigator @Inject constructor() : NavigatorGraphApi {
 
     override fun registerGraph(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable(
-            "/schedule/{platform}",
-            arguments = listOf(
-                navArgument("platform") {
-                    type = NavType.StringType
-                    defaultValue = "android"
-                })
-        )
-        {
+            "/schedule",
+        ) {
             ScheduleListScreen()
         }
-        navGraphBuilder.composable("/bookmark",) {
+        navGraphBuilder.composable("/bookmark") {
             BookmarkListScreen()
         }
-        navGraphBuilder.composable("/schedule/{scheduleId}",
+        navGraphBuilder.composable(
+            "/schedule/{scheduleId}",
             arguments = listOf(navArgument("scheduleId") { type = NavType.IntType })
         ) {
             ScheduleDetailScreen()

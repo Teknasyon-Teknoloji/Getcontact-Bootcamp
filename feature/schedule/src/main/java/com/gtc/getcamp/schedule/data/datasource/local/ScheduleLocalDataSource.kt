@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ScheduleLocalDataSource {
 
-    suspend fun getScheduleList(): Flow<List<ScheduleWithPersonEmbed>>
+    suspend fun getScheduleList(query: String, platform: String): Flow<List<ScheduleWithPersonEmbed>>
     suspend fun getScheduleDetail(scheduleId: Int): Flow<ScheduleWithPersonEmbed>
     suspend fun insertScheduleList(schedules: List<ScheduleEntity>)
     suspend fun toggleBookmark(scheduleId: Int)
