@@ -12,7 +12,7 @@ class ScheduleRemoteDataSourceImpl @Inject constructor(
         return scheduleApi.getAll()
     }
 
-    override suspend fun getScheduleDetail(scheduleId: String): ScheduleDto {
+    override suspend fun getScheduleDetail(scheduleId: Int): ScheduleDto {
         return scheduleApi.get(scheduleId)
     }
 }
