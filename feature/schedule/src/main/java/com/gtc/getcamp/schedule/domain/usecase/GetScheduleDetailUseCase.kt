@@ -8,6 +8,6 @@ import javax.inject.Inject
 class GetScheduleDetailUseCase  @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
 ) {
-    operator fun invoke(scheduleId: String): Flow<ScheduleModel> =
+    operator fun invoke(scheduleId: Int): Flow<ScheduleModel> =
         scheduleRepository.getScheduleDetail(scheduleId)
 }

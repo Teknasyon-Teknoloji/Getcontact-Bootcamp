@@ -3,6 +3,7 @@ package com.gtc.getcamp.schedule.presentation
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 import com.gtc.getcamp.schedule.domain.model.SpeakerPersonModel
+import java.util.*
 
 class SchedulePreviewParameter : PreviewParameterProvider<ScheduleModel> {
 
@@ -12,7 +13,7 @@ class SchedulePreviewParameter : PreviewParameterProvider<ScheduleModel> {
                 1,
                 "Modularization",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore",
-                date = "Now",
+                date = Date(),
                 hours = "14:30 - 15:00",
                 platform = "Android",
                 isBookmarked = false,
@@ -30,7 +31,7 @@ class SchedulePreviewParameter : PreviewParameterProvider<ScheduleModel> {
                 2,
                 "Hilt",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore",
-                date = "Now",
+                date = Date(),
                 hours = "16:00 - 17:00",
                 platform = "Android",
                 isBookmarked = false,

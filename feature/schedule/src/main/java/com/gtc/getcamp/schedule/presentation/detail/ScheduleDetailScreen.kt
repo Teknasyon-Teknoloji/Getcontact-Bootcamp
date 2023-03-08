@@ -90,7 +90,7 @@ private fun ScheduleDetailScreenContent(
             )
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
-                text = schedule.date.orEmpty(),
+                text = schedule.date.toString(),
                 style = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 10.sp),
             )
             Text(

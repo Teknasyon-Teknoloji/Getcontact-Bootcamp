@@ -43,7 +43,7 @@ fun ScheduleListScreen(
                             viewModel.toggleBookmark(item)
                         },
                         onClick = {
-                            scheduleListViewModel.navigateToDetail(item.scheduleId.toString())
+                            viewModel.navigateToDetail(item.scheduleId)
                         },
                     )
                     if (index < (state.schedules.size - 1)) {

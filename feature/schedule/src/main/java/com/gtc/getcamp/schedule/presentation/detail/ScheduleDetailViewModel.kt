@@ -16,8 +16,7 @@ class ScheduleDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
     private val _uiState = MutableStateFlow<ScheduleDetailScreenState>(LoadingState)
-    val
-            uiState = _uiState.asStateFlow()
+    val uiState = _uiState.asStateFlow()
 
     private val scheduleId by lazy {
         savedStateHandle.get<Int>("scheduleId")
@@ -29,7 +28,7 @@ class ScheduleDetailViewModel @Inject constructor(
 
     private fun getScheduleDetail() {
         viewModelScope.launch {
-            getScheduleDetailUseCase(scheduleId.toString()).collect { schedule ->
+            getScheduleDetailUseCase(scheduleId ?: 0).collect { schedule ->
                 _uiState.value = SuccessState(schedule = schedule)
             }
         }

@@ -1,10 +1,10 @@
 package com.gtc.getcamp.schedule.data.repository
 
 import com.gtc.getcamp.database.ScheduleEntity
-import com.gtc.getcamp.database.ScheduleWithPersonEmbed
 import com.gtc.getcamp.schedule.data.datasource.local.ScheduleLocalDataSource
 import com.gtc.getcamp.schedule.data.datasource.remote.ScheduleRemoteDataSource
 import com.gtc.getcamp.schedule.data.mapper.toScheduleEntities
+import com.gtc.getcamp.schedule.data.mapper.toScheduleModel
 import com.gtc.getcamp.schedule.data.mapper.toScheduleModels
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
 import com.gtc.getcamp.schedule.domain.repository.ScheduleRepository
@@ -43,7 +43,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         return channelFlow {
             launch {
                 scheduleLocalDataSource.getScheduleDetail(scheduleId).collect { embed ->
-                    embed.toSheduleModel().apply {
+                    embed.toScheduleModel().apply {
                         send(this)
                     }
                 }
@@ -60,5 +60,4 @@ class ScheduleRepositoryImpl @Inject constructor(
             emit(this)
         }
     }
-
 }
