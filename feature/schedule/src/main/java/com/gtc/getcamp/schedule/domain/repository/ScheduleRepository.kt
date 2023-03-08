@@ -8,4 +8,5 @@ interface ScheduleRepository {
     fun getScheduleList(): Flow<List<ScheduleModel>>
     fun getScheduleDetail(scheduleId: Int): Flow<ScheduleModel>
     fun toggleBookMark(scheduleId: Int): Flow<Unit>
+    fun getBookmarks(): Flow<List<ScheduleModel>>
 }

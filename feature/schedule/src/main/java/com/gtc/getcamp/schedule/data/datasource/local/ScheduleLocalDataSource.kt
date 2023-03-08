@@ -10,4 +10,5 @@ interface ScheduleLocalDataSource {
     suspend fun getScheduleDetail(scheduleId: Int): Flow<ScheduleWithPersonEmbed>
     suspend fun insertScheduleList(schedules: List<ScheduleEntity>)
     suspend fun toggleBookmark(scheduleId: Int)
+    suspend fun getBookmarkList(): Flow<List<ScheduleWithPersonEmbed>>
 }

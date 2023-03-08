@@ -19,4 +19,6 @@ interface ScheduleDao {
 
     @Query("UPDATE schedule SET isBookmarked = NOT isBookmarked WHERE scheduleId = :scheduleId")
     fun toggleBookmark(scheduleId: Int)
+    @Query("SELECT * FROM schedule WHERE isBookmarked = true")
+    fun getBookmarks(): Flow<List<ScheduleWithPersonEmbed>>
 }
