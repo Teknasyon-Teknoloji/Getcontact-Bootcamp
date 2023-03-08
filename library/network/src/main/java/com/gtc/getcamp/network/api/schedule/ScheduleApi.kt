@@ -9,6 +9,6 @@ interface ScheduleApi {
     suspend fun getAll(): List<ScheduleDto>
 
     @GET("schedule/detail/{id}")
-    suspend fun get(@Path("id") id: String): ScheduleDto
+    suspend fun get(@Path("id") id: Int): ScheduleDto
 
 }

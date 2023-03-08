@@ -14,11 +14,18 @@ class ScheduleLocalDataSourceImpl @Inject constructor(
         return scheduleDao.getAll()
     }
 
-    override suspend fun getScheduleDetail(scheduleId: String): Flow<ScheduleWithPersonEmbed> {
+    override suspend fun getScheduleDetail(scheduleId: Int): Flow<ScheduleWithPersonEmbed> {
         return scheduleDao.findById(scheduleId)
     }
 
     override suspend fun insertScheduleList(schedules: List<ScheduleEntity>) {
         return scheduleDao.insertAll(schedules)
     }
+
+    override suspend fun toggleBookmark(scheduleId: Int) {
+        scheduleDao.toggleBookmark(scheduleId)
+    }
+
+    override suspend fun getBookmarkList(): Flow<List<ScheduleWithPersonEmbed>> =
+        scheduleDao.getBookmarks()
 }

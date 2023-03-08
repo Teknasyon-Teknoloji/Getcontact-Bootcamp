@@ -5,13 +5,14 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import java.util.Date
 
 @Entity("schedule")
 data class ScheduleEntity(
     @PrimaryKey val scheduleId: Int,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String?,
-    @ColumnInfo(name = "date") val date: String?,
+    @ColumnInfo(name = "date") val date: Date?,
     @ColumnInfo(name = "hours") val hours: String?,
     @ColumnInfo(name = "platform") val platform: String?,
     @ColumnInfo(name = "isBookmarked") val isBookmarked: Boolean?,

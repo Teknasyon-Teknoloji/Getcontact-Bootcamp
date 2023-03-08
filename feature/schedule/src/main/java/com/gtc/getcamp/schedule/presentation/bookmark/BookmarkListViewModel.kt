@@ -1,11 +1,10 @@
-package com.gtc.getcamp.schedule.presentation.list
+package com.gtc.getcamp.schedule.presentation.bookmark
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gtc.getcamp.navigator.Navigator
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
-import com.gtc.getcamp.schedule.domain.usecase.GetScheduleListUseCase
+import com.gtc.getcamp.schedule.domain.usecase.GetBookmarkListUseCase
 import com.gtc.getcamp.schedule.domain.usecase.ToggleBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,28 +14,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ScheduleListViewModel @Inject constructor(
+class BookmarkListViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val getScheduleListUseCase: GetScheduleListUseCase,
+    private val getBookmarkListUseCase: GetBookmarkListUseCase,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<ScheduleScreenState>(LoadingState)
+    private val _uiState = MutableStateFlow<BookmarkListScreenState>(LoadingState)
     val uiState = _uiState.asStateFlow()
 
     init {
-        fetchSchedules(savedStateHandle.get<String>("platform") ?: "android")
+        fetchBookmarks()
     }
 
-    private fun fetchSchedules(platform: String?) {
+    private fun fetchBookmarks() {
         viewModelScope.launch {
-            getScheduleListUseCase(platform).collect { _uiState.value = SuccessState(it) }
+            getBookmarkListUseCase().collect { _uiState.value = SuccessState(it) }
         }
-    }
-
-    fun navigateToDetail(scheduleId: Int) {
-        return navigator.navigateTo("/schedule/${scheduleId}")
     }
 
     fun toggleBookmark(schedule: ScheduleModel) {

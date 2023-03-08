@@ -5,6 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gtc.getcamp.navigator.NavigatorGraphApi
+import com.gtc.getcamp.schedule.presentation.bookmark.BookmarkListScreen
 import com.gtc.getcamp.schedule.presentation.detail.ScheduleDetailScreen
 import com.gtc.getcamp.schedule.presentation.list.ScheduleListScreen
 import javax.inject.Inject
@@ -24,6 +25,9 @@ class ScheduleNavigator @Inject constructor() : NavigatorGraphApi {
         )
         {
             ScheduleListScreen()
+        }
+        navGraphBuilder.composable("/bookmark",) {
+            BookmarkListScreen()
         }
         navGraphBuilder.composable("/schedule/{scheduleId}",
             arguments = listOf(navArgument("scheduleId") { type = NavType.IntType })
