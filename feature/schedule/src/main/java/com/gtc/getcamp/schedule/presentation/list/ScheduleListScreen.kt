@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.gtc.getcamp.schedule.R
 import com.gtc.getcamp.schedule.domain.model.ScheduleModel
+import com.gtc.getcamp.schedule.presentation.list.filter.ScheduleFilterScreen
 
 @OptIn(
     ExperimentalFoundationApi::class,
@@ -34,6 +35,19 @@ fun ScheduleListScreen(
     val uiState by viewModel.uiState.collectAsState()
     val query by viewModel.query.collectAsState()
 
+    var openFilter by remember {
+        mutableStateOf(false)
+    }
+
+    if (openFilter) {
+        ScheduleFilterScreen(
+            currentPlatform = viewModel.platform,
+            onDismiss = {
+                viewModel.selectPlatform(it)
+                openFilter = false
+            }
+        )
+    }
     when (uiState) {
         LoadingState -> {
             Text(text = "LOADING")
@@ -50,7 +64,7 @@ fun ScheduleListScreen(
                     TopBar(
                         query = query,
                         onFilter = {
-
+                            openFilter = true
                         },
                         onTextChange = { text ->
                             viewModel.search(text)
@@ -104,7 +118,7 @@ private fun TopBar(
                 .padding(vertical = 8.dp, horizontal = 16.dp),
             value = query,
             placeholder = {
-                Text(text = "Search...",)
+                Text(text = "Search...")
             },
             onValueChange = {
                 onTextChange(it)

@@ -7,4 +7,7 @@ enum class Platform {
     IOS {
         override fun toString(): String = "ios"
     },
+    ALL {
+        override fun toString(): String = "all"
+    },
 }

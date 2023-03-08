@@ -25,15 +25,24 @@ class ScheduleListViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     private val _query = MutableStateFlow("")
-    val query  = _query.asStateFlow()
+    val query = _query.asStateFlow()
+
+    var platform = Platform.ANDROID
 
     init {
         viewModelScope.launch {
             _query.debounce(500)
                 .distinctUntilChanged()
-                .collectLatest {
-                    fetchSchedules(it, Platform.ANDROID)
+                .collectLatest { query ->
+                    fetchSchedules(query, platform)
                 }
+        }
+    }
+
+    fun selectPlatform(platform: Platform) {
+        this.platform = platform
+        viewModelScope.launch {
+            fetchSchedules(_query.value, platform)
         }
     }
 
@@ -46,7 +55,7 @@ class ScheduleListViewModel @Inject constructor(
     }
 
     fun navigateToDetail(scheduleId: Int) {
-        return navigator.navigateTo("/schedule/${scheduleId}")
+        navigator.navigateTo("/schedule/${scheduleId}")
     }
 
     fun toggleBookmark(schedule: ScheduleModel) {
