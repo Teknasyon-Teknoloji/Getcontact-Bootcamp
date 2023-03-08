@@ -67,7 +67,7 @@ class ScheduleRepositoryImpl @Inject constructor(
                 scheduleId = scheduleDto.id,
                 title = scheduleDto.title.orEmpty(),
                 description = scheduleDto.description,
-                date = scheduleDto.date.toString(),
+                date = scheduleDto.date,
                 hours = scheduleDto.hours,
                 platform = scheduleDto.platform,
                 isBookmarked = false,
