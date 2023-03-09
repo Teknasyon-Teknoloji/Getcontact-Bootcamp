@@ -137,7 +137,7 @@ fun AppGraph(
                 },
                 bottomBar = {
                     NavigationBar(
-                        containerColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.surface,
                         contentColor = MaterialTheme.colorScheme.secondary,
                     ) {
                         bottomNavItems.forEach { item ->
@@ -162,11 +162,11 @@ fun AppGraph(
                                     )
                                 },
                                 colors = NavigationBarItemDefaults.colors(
-                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                    indicatorColor = MaterialTheme.colorScheme.primary,
-                                    unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                    unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                    selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 ),
                             )
                         }
@@ -224,14 +224,14 @@ val bottomNavItems = listOf(
         icon = R.drawable.ic_people,
     ),
     BottomNavItem(
-        name = "Android",
-        route = "/schedule/android",
-        icon = R.drawable.ic_android,
+        name = "Schedule",
+        route = "/schedule",
+        icon = R.drawable.ic_schedule,
     ),
     BottomNavItem(
-        name = "iOS",
-        route = "/schedule/ios",
-        icon = R.drawable.ic_ios,
+        name = "Bookmark",
+        route = "/bookmark",
+        icon = R.drawable.ic_bookmark,
     ),
 )
 

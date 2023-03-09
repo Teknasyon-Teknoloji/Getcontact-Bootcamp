@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ScheduleRepository {
 
-    fun getScheduleList(): Flow<List<ScheduleModel>>
-    fun getScheduleDetail(scheduleId: String): Flow<ScheduleModel>
+    fun getScheduleList(query: String, platform: Platform): Flow<List<ScheduleModel>>
+    fun getScheduleDetail(scheduleId: Int): Flow<ScheduleModel>
+    fun toggleBookMark(scheduleId: Int): Flow<Unit>
+    fun getBookmarks(): Flow<List<ScheduleModel>>
 }
