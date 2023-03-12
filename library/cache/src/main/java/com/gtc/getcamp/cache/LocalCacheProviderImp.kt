@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
@@ -44,26 +45,17 @@ class LocalCacheProviderImp @Inject constructor(
         }
     }
 
-    override suspend fun <T> readValue(key: Preferences.Key<T>, responseFunc: T.() -> Unit) {
-        dataStore.getFromLocalStorage(key) {
-            responseFunc.invoke(this)
-        }
-    }
-
-    private suspend fun <T> DataStore<Preferences>.getFromLocalStorage(
-        PreferencesKey: Preferences.Key<T>,
-        func: T.() -> Unit
-    ) {
-        data.catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
+    override fun readIntValue(key: String): Flow<Int> {
+        val prefKey = intPreferencesKey(key)
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                return@map preferences[prefKey] ?: 1
             }
-        }.map { pref ->
-            pref[PreferencesKey]
-        }.collect {
-            it?.let { func.invoke(it as T) }
-        }
     }
 }
