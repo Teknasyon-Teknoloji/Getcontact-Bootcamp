@@ -1,0 +1,20 @@
+plugins {
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
+}
+
+apply from: "${libraryCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.database'
+}
+
+dependencies {
+    implementation libs.bundles.room
+    annotationProcessor libs.room.compiler
+    ksp libs.room.compiler
+    implementation libs.coroutines.core
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+}

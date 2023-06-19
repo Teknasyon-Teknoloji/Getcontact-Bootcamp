@@ -1,0 +1,28 @@
+plugins {
+    alias(libs.plugins.kapt)
+}
+apply from: "${featureCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.people'
+}
+
+dependencies {
+    implementation project(":library:database")
+    implementation project(":library:network")
+    implementation project(":library:navigator")
+    implementation libs.hilt.android
+    implementation libs.bundles.navigation
+    implementation "io.coil-kt:coil-compose:2.2.2"
+    kapt libs.hilt.compiler
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+
+    testImplementation "io.mockk:mockk-android:1.13.3"
+    testImplementation "io.mockk:mockk-agent:1.13.3"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
+    testImplementation 'androidx.test.ext:truth:1.5.0'
+
+
+}

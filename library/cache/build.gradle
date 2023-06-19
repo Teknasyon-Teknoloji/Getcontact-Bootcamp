@@ -1,0 +1,18 @@
+plugins {
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
+}
+
+apply from: "${libraryCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.cache'
+}
+
+dependencies {
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    implementation libs.coroutines.core
+    implementation libs.datastore
+}

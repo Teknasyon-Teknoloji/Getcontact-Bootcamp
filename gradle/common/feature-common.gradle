@@ -1,0 +1,13 @@
+apply from: "$libraryCommonDir"
+
+android {
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
+    }
+}
+dependencies {
+    implementation libs.bundles.ui
+}

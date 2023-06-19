@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+}
+
+apply from: "${libraryCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.network'
+}
+
+dependencies {
+    implementation libs.bundles.retrofit
+    implementation libs.okhttp.logger
+    implementation libs.hilt.android
+    implementation libs.bundles.moshi
+    ksp libs.moshi.codegen
+    kapt libs.hilt.compiler
+}

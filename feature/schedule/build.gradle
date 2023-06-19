@@ -1,0 +1,18 @@
+plugins {
+    alias(libs.plugins.kapt)
+}
+apply from: "${featureCommonDir}"
+
+android {
+    namespace 'com.gtc.getcamp.schedule'
+}
+
+dependencies {
+    implementation project(":library:database")
+    implementation project(":library:network")
+    implementation project(":library:navigator")
+    implementation libs.hilt.android
+    implementation libs.bundles.navigation
+    implementation libs.coil
+    kapt libs.hilt.compiler
+}
